@@ -9,3 +9,7 @@ body {
 .App-link {
   color: #61dafb;
 }
+
+.card-deck {
+  padding: 2% 0;
+}

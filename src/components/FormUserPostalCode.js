@@ -9,15 +9,15 @@ export class FormUserPostalCode extends Component {
     const postalCode = this.props.postalCode;
     console.log(this.props);
     return (
-      <div className="input-group mb-3 input-group-lg">
-        <input type="text" className="form-control" placeholder="Postal Code" value={postalCode} onChange={this.props.handleChange('postalCode')} />
-        <div className="input-group-append">
-          <button className="btn btn-outline-secondary" type="button">Get Started</button>
-
-          {/* TODO: Implement Postal Code validation. 
-                    Must be a valid London, ON postal code. */}
-
+      <div className="input-group input-group-lg">
+        <input type="text" className="form-control" id="postalCode" placeholder="Postal Code" />
+        <div class="input-group-append">
+          <button type="button" class="btn btn-primary" onClick={this.continue}>Get Started</button>
         </div>
+
+        {/* TODO: Implement Postal Code validation. 
+                    Must be a valid London, ON postal code.*/}
+
       </div>
     )
   }

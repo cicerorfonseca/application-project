@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormUserPostalCode from './FormUserPostalCode';
+import FormServiceDetails from './FormServiceDetails';
 
 export class UserForm extends Component {
   state = {
@@ -60,7 +61,7 @@ export class UserForm extends Component {
       //Second Step, SERVICE DETAILS form
       case 2:
         return (
-          <h1>FormServiceDetails</h1>
+          <FormServiceDetails />
         )
 
       //Third Step, USER DETAILS form

@@ -13,3 +13,9 @@ body {
 .card-deck {
   padding: 2% 0;
 }
+
+form {
+  width: 55%;
+  margin: auto;
+}
+

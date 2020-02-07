@@ -10,12 +10,12 @@ body {
   color: #61dafb;
 }
 
-.card-deck {
-  padding: 2% 0;
-}
-
 .mainForm {
   width: 55%;
   margin: auto;
+}
+
+.postalInput {
+  text-align: left;
 }
 

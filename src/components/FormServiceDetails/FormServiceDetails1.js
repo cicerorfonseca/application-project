@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export class FormServiceDetails1 extends Component {
 
-  //This function calls the callback props.updateProfessional using the value selected as argument
+  //Update app.js state
   updateProfessionalParent = (e) => {
     this.props.updateProfessional(e.target.value);
   }
@@ -23,7 +23,8 @@ export class FormServiceDetails1 extends Component {
     return (
       <div>
         <div style={style}>
-          <label htmlFor="selectProfessional">What type of professional are you looking for?</label>
+          <h3>What type of professional are you looking for?</h3>
+          <p>Select the professional that fits your needs, a plumber, an electrician or a magician :) so we can recommend you only the best!</p>
           <select className="form-control" id="selectProfessional" value={this.props.professional} onChange={this.updateProfessionalParent}>
             <option hidden>Pick the professional</option>
             <option value="plumber">Plumber</option>
@@ -36,6 +37,9 @@ export class FormServiceDetails1 extends Component {
         </div >
         <div style={styleButtons}>
           <div className="leftBtn">
+
+            {/* TODO: Validate the field, it must be selected before the next step. */}
+
             <button type="button" className="btn btn-primary" onClick={this.props.prevStep}>Back</button>
           </div>
           <div className="rightBtn">

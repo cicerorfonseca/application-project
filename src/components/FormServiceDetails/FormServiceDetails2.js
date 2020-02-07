@@ -34,8 +34,8 @@ export class FormServiceDetails2 extends Component {
 
         jobType =
           <div style={style}>
-            <h3>Give us some details about the job:</h3>
-            <p>To give you the proper quote, the professional needs as many details as possible. Describe the job you want including detail of any specifics.</p>
+            <h3>What type of job you need?</h3>
+            <p>You can choose one option below or in case you need something different, just click on Other and you can give us more details about the job in the next step.</p>
             <div className="jobType">
               <div className="leftCol">
                 <div className="custom-control custom-radio">

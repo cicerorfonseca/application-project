@@ -14,7 +14,7 @@ body {
   padding: 2% 0;
 }
 
-form {
+.mainForm {
   width: 55%;
   margin: auto;
 }

@@ -5,6 +5,7 @@ import './App.css';
 import FormServiceDetails1 from './components/FormServiceDetails/FormServiceDetails1';
 import FormServiceDetails2 from './components/FormServiceDetails/FormServiceDetails2';
 import FormServiceDetails3 from './components/FormServiceDetails/FormServiceDetails3';
+import FormUserDetails from './components/FormUserDetails';
 
 class App extends Component {
   state = {
@@ -53,8 +54,14 @@ class App extends Component {
     this.setState({ serviceType: childData })
   }
 
+  //Update Service Detail according to the child form data (FormServiceDetails3)
   updateServiceDetail = (childData) => {
     this.setState({ serviceDetail: childData })
+    this.nextStep()
+  }
+
+  //Update User Details according to the child form data (FormUserDetails)
+  updateUserDetails = (childData) => {
     this.nextStep()
   }
 
@@ -66,12 +73,11 @@ class App extends Component {
         <div className="App">
           <div className="jumbotron">
             <div className="container">
-
               <h1 className="display-4">Get your quote</h1>
               <p className="lead">Get FREE quotes for any job around the home.</p>
               <hr className="my-4" />
 
-              <form>
+              <div className="mainForm">
                 {/* POSTAL CODE FORM */}
                 {step === 1 &&
                   <div><input type="text" className="form-control form-control-lg" id="postalCode" placeholder="Postal Code" />
@@ -109,7 +115,16 @@ class App extends Component {
                     updateServiceDetail={this.updateServiceDetail}
                   />
                 )}
-              </form>
+                {/* USER DETAILS FORM */}
+                {step === 5 && (
+                  < FormUserDetails
+                    step={this.state.step}
+                    nextStep={this.nextStep}
+                    prevStep={this.prevStep}
+                    updateUserDetails={this.updateUserDetails}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>

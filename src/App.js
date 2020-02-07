@@ -13,15 +13,17 @@ class App extends Component {
     postalCode: '',
     professional: '',
     serviceType: '',
+    //Service Details
     serviceDetail: '',
     servicePriority: '',
+    //User Form
     firstName: '',
     lastName: '',
     phoneNumber: '',
     emailAddress: ''
   }
 
-  //Proceed to the next step
+  //HANDLE STEPS
   nextStep = () => {
     const step = this.state.step;
     this.setState({
@@ -29,7 +31,6 @@ class App extends Component {
     })
   }
 
-  //Back to the previous step
   prevStep = () => {
     const step = this.state.step;
     this.setState({
@@ -37,36 +38,45 @@ class App extends Component {
     })
   }
 
-  //Updates Postal Code according to the input
+  //UPDATE STATE
   updatePostalCode = () => {
+    //TODO: Validate the Postal Code according to the London list of postal code
+    //in this first step requests will be made only by customers from London, ON
+
     let postalCode = document.getElementById('postalCode').value;
     this.setState({ postalCode: postalCode })
-    this.nextStep()
   }
 
-  //Updates Professional according to the child form data (FormServiceDetails1)
   updateProfessional = (childData) => {
     this.setState({ professional: childData })
   }
 
-  //Updates Professional according to the child form data (FormServiceDetails2)
   updateServiceType = (childData) => {
     this.setState({ serviceType: childData })
   }
 
-  //Updates Service Detail according to the child form data (FormServiceDetails3)
   updateServiceDetail = (childData) => {
     this.setState({ serviceDetail: childData })
   }
 
-  //Updates Service priority according to the child form data (FormServiceDetails3)
   updateServicePriority = (childData) => {
     this.setState({ servicePriority: childData })
   }
 
-  //Updates User Details according to the child form data (FormUserDetails)
-  updateUserDetails = () => {
-    this.nextStep()
+  updateFirstName = (childData) => {
+    this.setState({ firstName: childData })
+  }
+
+  updateLastName = (childData) => {
+    this.setState({ lastName: childData })
+  }
+
+  updatePhoneNumber = (childData) => {
+    this.setState({ phoneNumber: childData })
+  }
+
+  updateEmailAddress = (childData) => {
+    this.setState({ emailAddress: childData })
   }
 
   render() {
@@ -84,9 +94,9 @@ class App extends Component {
               <div className="mainForm">
                 {/* POSTAL CODE FORM */}
                 {step === 1 &&
-                  <div><input type="text" className="form-control form-control-lg" id="postalCode" placeholder="Postal Code" />
+                  <div><input type="text" className="form-control form-control-lg" id="postalCode" placeholder="Postal Code" value={this.state.postalCode} onChange={this.updatePostalCode} />
                     <br></br>
-                    <button type="button" className="btn btn-primary" onClick={this.updatePostalCode}>Get Started</button>
+                    <button type="button" className="btn btn-primary" onClick={this.nextStep}>Get Started</button>
                   </div>
                 }
                 {/* PROFESSIONAL TYPE FORM */}
@@ -123,10 +133,18 @@ class App extends Component {
                 {/* USER DETAILS FORM */}
                 {step === 5 && (
                   < FormUserDetails
-                    step={this.state.step}
+                    step={step}
                     nextStep={this.nextStep}
                     prevStep={this.prevStep}
-                    updateUserDetails={this.updateUserDetails}
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    phoneNumber={this.state.phoneNumber}
+                    emailAddress={this.state.emailAddress}
+                    postalCode={this.state.postalCode}
+                    updateFirstName={this.updateFirstName}
+                    updateLastName={this.updateLastName}
+                    updatePhoneNumber={this.updatePhoneNumber}
+                    updateEmailAddress={this.updateEmailAddress}
                   />
                 )}
               </div>

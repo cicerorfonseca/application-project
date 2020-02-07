@@ -27,6 +27,11 @@ export class FormServiceDetails2 extends Component {
 
     switch (professional) {
       case 'plumber':
+        let plumberServiceList = ['Clogged Drains', 'Leaking Pipes', 'Diagnosis & Inspection', ' Electric Showers', 'Sprinkle System',
+          'Kitchen Services', 'Sewer Repair', 'Upgrade Fixtures', 'Replace Shower Valves', 'Other'];
+
+        //TODO: Generate the job list html using the array above instead of hard coded
+
         jobType =
           <div style={style}>
             <h3>Give us some details about the job:</h3>
@@ -47,40 +52,9 @@ export class FormServiceDetails2 extends Component {
                     onChange={this.updateServiceParent} />
                   <label className="custom-control-label" htmlFor="customRadio2">Leaking Pipes</label>
                 </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio3" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio3">Diagnosis & Inspection</label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio4" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio4">Electric Showers</label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio5" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio5">Sprinkler System</label>
-                </div>
               </div>
               <div className="rightCol">
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio6" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio6">Kitchen Services and Installation</label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio7" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio7">Sewer Repair</label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio8" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio8">Upgrade plumbing fixtures</label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio9" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio9">Replace shower valves</label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio10" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" htmlFor="customRadio10">Other</label>
-                </div>
+
               </div>
             </div>
             <br />

@@ -6,6 +6,7 @@ export class FormServiceDetails3 extends Component {
     this.props.updateServiceDetail(e.target.value);
   }
 
+  //This functions invokes que updateService priority from App.js
   updateServicePriorityParent = (e) => {
     this.props.updateServicePriority(e.target.value);
   }

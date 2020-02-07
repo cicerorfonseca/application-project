@@ -14,7 +14,7 @@ class App extends Component {
     professional: '',
     serviceType: '',
     serviceDetail: '',
-    serviceStart: '',
+    servicePriority: '',
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -37,31 +37,35 @@ class App extends Component {
     })
   }
 
-  //Update Postal Code according to the input
+  //Updates Postal Code according to the input
   updatePostalCode = () => {
     let postalCode = document.getElementById('postalCode').value;
     this.setState({ postalCode: postalCode })
     this.nextStep()
   }
 
-  //Update Professional according to the child form data (FormServiceDetails1)
+  //Updates Professional according to the child form data (FormServiceDetails1)
   updateProfessional = (childData) => {
     this.setState({ professional: childData })
   }
 
-  //Update Professional according to the child form data (FormServiceDetails2)
+  //Updates Professional according to the child form data (FormServiceDetails2)
   updateServiceType = (childData) => {
     this.setState({ serviceType: childData })
   }
 
-  //Update Service Detail according to the child form data (FormServiceDetails3)
+  //Updates Service Detail according to the child form data (FormServiceDetails3)
   updateServiceDetail = (childData) => {
     this.setState({ serviceDetail: childData })
-    this.nextStep()
   }
 
-  //Update User Details according to the child form data (FormUserDetails)
-  updateUserDetails = (childData) => {
+  //Updates Service priority according to the child form data (FormServiceDetails3)
+  updateServicePriority = (childData) => {
+    this.setState({ servicePriority: childData })
+  }
+
+  //Updates User Details according to the child form data (FormUserDetails)
+  updateUserDetails = () => {
     this.nextStep()
   }
 
@@ -113,6 +117,7 @@ class App extends Component {
                     nextStep={this.nextStep}
                     prevStep={this.prevStep}
                     updateServiceDetail={this.updateServiceDetail}
+                    updateServicePriority={this.updateServicePriority}
                   />
                 )}
                 {/* USER DETAILS FORM */}

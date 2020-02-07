@@ -37,49 +37,49 @@ export class FormServiceDetails2 extends Component {
                   <input type="radio" id="customRadio1" name="jobType" className="custom-control-input"
                     checked={this.props.serviceType === 'Clogged Drains'}
                     value="Clogged Drains"
-                    onClick={this.updateServiceParent} />
-                  <label className="custom-control-label" for="customRadio1">Clogged Drains</label>
+                    onChange={this.updateServiceParent} />
+                  <label className="custom-control-label" htmlFor="customRadio1">Clogged Drains</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio2" name="jobType" className="custom-control-input"
                     checked={this.props.serviceType === 'Leaking Pipes'}
                     value="Leaking Pipes"
-                    onClick={this.updateServiceParent} />
-                  <label className="custom-control-label" for="customRadio2">Leaking Pipes</label>
+                    onChange={this.updateServiceParent} />
+                  <label className="custom-control-label" htmlFor="customRadio2">Leaking Pipes</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio3" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio3">Diagnosis & Inspection</label>
+                  <label className="custom-control-label" htmlFor="customRadio3">Diagnosis & Inspection</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio4" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio4">Electric Showers</label>
+                  <label className="custom-control-label" htmlFor="customRadio4">Electric Showers</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio5" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio5">Sprinkler System</label>
+                  <label className="custom-control-label" htmlFor="customRadio5">Sprinkler System</label>
                 </div>
               </div>
               <div className="rightCol">
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio6" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio6">Kitchen Services and Installation</label>
+                  <label className="custom-control-label" htmlFor="customRadio6">Kitchen Services and Installation</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio7" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio7">Sewer Repair</label>
+                  <label className="custom-control-label" htmlFor="customRadio7">Sewer Repair</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio8" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio8">Upgrade plumbing fixtures</label>
+                  <label className="custom-control-label" htmlFor="customRadio8">Upgrade plumbing fixtures</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio9" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio9">Replace shower valves</label>
+                  <label className="custom-control-label" htmlFor="customRadio9">Replace shower valves</label>
                 </div>
                 <div className="custom-control custom-radio">
                   <input type="radio" id="customRadio10" name="jobType" className="custom-control-input" />
-                  <label className="custom-control-label" for="customRadio10">Other</label>
+                  <label className="custom-control-label" htmlFor="customRadio10">Other</label>
                 </div>
               </div>
             </div>

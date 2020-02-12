@@ -84,22 +84,18 @@ class App extends Component {
 
     return (
       <div className="App">
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-          <div className="container">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">Features</a>
-                <a class="nav-item nav-link" href="#">Pricing</a>
-                <a class="nav-item nav-link disabled" href="#">Disabled</a>
-              </div>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div class="container">
+            <a class="navbar-brand" href="#">Get Your Quote - London</a>
+            <div class="form-inline my-2 my-lg-0" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <button type="button" class="btn btn-light">I'm a professional</button>
+              </ul>
             </div>
           </div>
         </nav>
+
         <div className="jumbotron">
           <div className="container">
             <h1 className="display-4">Get your quote</h1>

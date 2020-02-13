@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './FormServiceDetails2.css';
+import './Form02JobType.css';
 
 export class FormServiceDetails2 extends Component {
 
@@ -27,13 +27,13 @@ export class FormServiceDetails2 extends Component {
 
     switch (professional) {
       case 'plumber':
-        let plumberServiceList = ['Clogged Drains', 'Leaking Pipes', 'Diagnosis & Inspection', ' Electric Showers', 'Sprinkle System',
-          'Kitchen Services', 'Sewer Repair', 'Upgrade Fixtures', 'Replace Shower Valves', 'Other'];
+        // let plumberServiceList = ['Clogged Drains', 'Leaking Pipes', 'Diagnosis & Inspection', ' Electric Showers', 'Sprinkle System',
+        //   'Kitchen Services', 'Sewer Repair', 'Upgrade Fixtures', 'Replace Shower Valves', 'Other'];
 
         //TODO: Generate the job list html using the array above instead of hard coded
 
         jobType =
-          <div style={style}>
+          <div style={style} className="requestForm">
             <h3>What type of job you need?</h3>
             <p>You can choose one option below or in case you need something different, just click on Other and you can give us more details about the job in the next step.</p>
             <div className="jobType">
@@ -60,10 +60,10 @@ export class FormServiceDetails2 extends Component {
             <br />
             <div style={styleButtons}>
               <div className="leftBtn">
-                <button type="button" className="btn btn-primary" onClick={this.props.prevStep}>Back</button>
+                <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
               </div>
               <div className="rightBtn">
-                <button type="button" className="btn btn-primary" onClick={this.props.nextStep}>Next</button>
+                <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
               </div>
             </div>
           </div>

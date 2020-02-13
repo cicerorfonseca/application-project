@@ -37,7 +37,7 @@ export class FormUserDetails extends Component {
     // END OF STYLE //
 
     return (
-      <div>
+      <div className="requestForm">
         <div style={style}>
           <form>
             <div className="form-row">
@@ -88,10 +88,10 @@ export class FormUserDetails extends Component {
 
             <div style={styleButtons}>
               <div className="leftBtn">
-                <button type="button" className="btn btn-primary" onClick={this.props.prevStep}>Back</button>
+                <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
               </div>
               <div className="rightBtn">
-                <button type="submit" className="btn btn-primary">Submit Request</button>
+                <button type="submit" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
               </div>
             </div>
           </form>

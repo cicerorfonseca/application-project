@@ -21,7 +21,7 @@ export class FormServiceDetails1 extends Component {
     // END OF STYLE //
 
     return (
-      <div>
+      <div className="requestForm">
         <div style={style}>
           <h3>What type of professional are you looking for?</h3>
           <p>Select the professional that fits your needs, a plumber, an electrician or a magician :) so we can recommend you only the best!</p>
@@ -40,10 +40,10 @@ export class FormServiceDetails1 extends Component {
 
             {/* TODO: Validate the field, it must be selected before the next step. */}
 
-            <button type="button" className="btn btn-primary" onClick={this.props.prevStep}>Back</button>
+            <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
           </div>
           <div className="rightBtn">
-            <button type="button" className="btn btn-primary" onClick={this.props.nextStep}>Next</button>
+            <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
           </div>
         </div>
       </div>

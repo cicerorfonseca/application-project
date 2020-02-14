@@ -21,6 +21,12 @@ body {
   text-align: left;
 }
 
+.professionalSelection {
+  width: 85%;
+  margin: auto;
+  text-align: left;
+}
+
 .pro-card {
   height: 200px;
   position: relative;
@@ -31,7 +37,7 @@ body {
 
 .card-body {
   position: absolute;
-  width: 100%;
+  padding: 0 5% 0 5%;
   height: 100%;
   z-index: 1;
   background-color: rgb(215, 235, 255);
@@ -41,26 +47,41 @@ body {
   background-color: #007BFF;
   color: white;
   transition: background-color 100ms linear, color 100ms linear;
+  cursor: pointer;
 }
 
 .card-header {
   display: flex;
+  height: 50%;
+  padding: 2% 0 0 2%;
   justify-content: space-between;
+  background-color: rgba(215, 235, 255, 0);
+  border: none;
 }
 
 .title {
-  width: 50%;
+  width: 70%;
   margin: 0;
-  padding: 0;
+  padding: 5% 0 0 0 ;
+}
+
+.checked {
+  color: orange;
 }
 
 .prof-picture {
   margin: 0;
   padding: 0;
   width: 30%;
+  text-align: right;
 }
 
 .prof-picture img {
-  width: 100%;
+  margin: auto;
+  height: 100%;
   border-radius: 50%;
+}
+
+.card-text {
+  font-size: 0.8em;
 }

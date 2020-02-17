@@ -25,7 +25,7 @@ export class FormServiceDetails3 extends Component {
     // END OF STYLE //
 
     return (
-      <div>
+      <div className="requestForm">
         <div style={style}>
           <div className="form-group">
             <h3>Give us some details about the job</h3>
@@ -50,10 +50,10 @@ export class FormServiceDetails3 extends Component {
         <br />
         <div style={styleButtons}>
           <div className="leftBtn">
-            <button type="button" className="btn btn-primary" onClick={this.props.prevStep}>Back</button>
+            <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
           </div>
           <div className="rightBtn">
-            <button type="button" className="btn btn-primary" onClick={this.props.nextStep}>Next</button>
+            <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
           </div>
         </div>
       </div>

@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Final Project IWD Course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "@claudio.rasf",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "mongoose": "^5.8.12",
+    "mongoose-unique-validator": "^2.0.3",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.4",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.15",
+    "nodemon": "^2.0.2"
+  }
+}

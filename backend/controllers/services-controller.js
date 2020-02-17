@@ -3,7 +3,18 @@ const Service = require('../models/service');
 
 const { validationResult } = require('express-validator');
 
+const getServices = async (req, res, next) => {
 
+    let services;
+
+    try {
+        services = await Service.find();
+    } catch (err) {
+        const error = new HttpError('Fetching services failed, please try again later.', 500);
+        return next(error);
+    }
+    res.json({services: services.map(service => service.toObject({getters: true}))});    
+}
 
 const getServiceById = async (req, res, next) => {
     
@@ -24,6 +35,25 @@ const getServiceById = async (req, res, next) => {
 
     res.json({ service: service.toObject( {getters: true} ) }); // => {service} => {service:service}
 };
+
+const getServiceByProfessionalId = async (req, res, next) => {
+    const professionalId = req.params.sid;
+
+    let services;
+
+    try {
+        services = await Service.find({professionals: professionalId});    
+    } catch (err) {
+        const error = new HttpError('Fetching services failed, please try again later', 500);
+        return next(error);
+    }    
+
+    if (!services || services.length === 0) {
+        return next(new HttpError('Could not find services for the provided service id.', 404));
+    }
+
+    res.json({ services: services.map(service => service.toObject({ getters: true })) });
+}
 
 const createService = async (req, res, next) => {
 
@@ -145,7 +175,9 @@ const deleteService = async (req, res, next) => {
     res.status(200).json({ message: 'Deleted service.'} );
 };
 
+exports.getServices = getServices;
 exports.getServiceById = getServiceById;
+exports.getServiceByProfessionalId = getServiceByProfessionalId;
 exports.createService = createService;
 exports.updateService = updateService;
 exports.deleteService = deleteService;

@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 // Project modules (routers)
 const servicesRoutes = require('./routes/services-route');
 const professionalsRoutes = require('./routes/professionals-route');
+
+// Project models
 const HttpError = require('./models/http-error');
 
 const app = express();
@@ -30,7 +32,7 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An unknown error occurred!'});
 });
 
-// Database
+// Database (MongoDB)
 const connectUrl = 'mongodb+srv://services_iwd:Vli9gRoD6uoCSmjw@cluster0-ih1np.mongodb.net/servicesApi?retryWrites=true&w=majority';
 const connectConfig = {
     useNewUrlParser: true,

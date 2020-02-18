@@ -5,9 +5,13 @@ const professionalsController = require('../controllers/professionals-controller
 const router = express.Router();
 
 // filter HTTP request methods
-router.get('/', professionalsController.getProfessionals);
+router
+    .route('/')
 
-router.post('/', professionalsController.createProfessional);
+    .get(professionalsController.getProfessionals)
+    .post(professionalsController.createProfessional);
+
+router.get('/:cat', professionalsController.getProfessionalsByCategory);
 
 //router.post('/login');
 

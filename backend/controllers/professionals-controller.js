@@ -56,5 +56,27 @@ const getProfessionals = async (req, res, next) => {
     res.json({professionals: professionals.map(professional => professional.toObject({getters: true}))});    
 }
 
+const getProfessionalsByCategory = async (req, res, next) => {
+    
+    const professionalCategory = req.params.cat;
+
+    let professionals;
+
+    try {
+        professionals = await Professional.find({category: professionalCategory});    
+    } catch (err) {
+        const error = new HttpError('Something went wrong, could not find a professional category', 500);
+        return next(error);
+    }
+
+    if (!professionals) {
+        const error = new HttpError('Could not find a professional for the category', 404);
+        return next(error);
+    }
+
+    res.json({professionals: professionals.map(professional => professional.toObject({getters: true}))});
+};
+
 exports.createProfessional = createProfessional;
 exports.getProfessionals = getProfessionals;
+exports.getProfessionalsByCategory = getProfessionalsByCategory;

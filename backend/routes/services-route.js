@@ -6,17 +6,19 @@ const router = express.Router();
 
 // filter HTTP request methods
 
-// Get all services
-router.get('/', servicesController.getServices);
+router
+    .route('/')
 
-router.get('/:sid', servicesController.getServiceById);
+    .get(servicesController.getServices)
+    .post(servicesController.createService);
+
+router
+    .route('/:sid')
+
+    .get(servicesController.getServiceById)
+    .patch(servicesController.updateService)
+    .delete(servicesController.deleteService);
 
 router.get('/professional/:sid', servicesController.getServiceByProfessionalId);
-
-router.post('/', servicesController.createService);
-
-router.patch('/:sid', servicesController.updateService);
-
-router.delete('/:sid', servicesController.deleteService);
 
 module.exports = router;

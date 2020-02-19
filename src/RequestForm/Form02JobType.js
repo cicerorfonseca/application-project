@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './Form02JobType.css';
 
-export class FormServiceDetails2 extends Component {
+export class Form02JobType extends Component {
 
   //This function calls the callback props.updateProfessional using the value selected as argument
   updateServiceParent = (e) => {
@@ -11,63 +11,26 @@ export class FormServiceDetails2 extends Component {
 
   render() {
     const professional = this.props.professional;
-    let jobType = '';
-
-    // STYLE //
-    const style = {
-      margin: "auto",
-      textAlign: "left"
-    };
-
-    const styleButtons = {
-      display: "flex",
-      justifyContent: "space-between"
-    }
-    // END OF STYLE //
+    let listServices = '';
 
     switch (professional) {
       case 'plumber':
-        // let plumberServiceList = ['Clogged Drains', 'Leaking Pipes', 'Diagnosis & Inspection', ' Electric Showers', 'Sprinkle System',
-        //   'Kitchen Services', 'Sewer Repair', 'Upgrade Fixtures', 'Replace Shower Valves', 'Other'];
+        //Declare the services for this professional
+        let plumberServiceList = ['Clogged Drains', 'Leaking Pipes', 'Diagnosis & Inspection', 'Electric Showers', 'Sprinkle System',
+          'Kitchen Services', 'Sewer Repair', 'Upgrade Fixtures', 'Replace Shower Valves', 'Other'];
 
-        //TODO: Generate the job list html using the array above instead of hard coded
-
-        jobType =
-          <div style={style} className="requestForm">
-            <h3>What type of job you need?</h3>
-            <p>You can choose one option below or in case you need something different, just click on Other and you can give us more details about the job in the next step.</p>
-            <div className="jobType">
-              <div className="leftCol">
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio1" name="jobType" className="custom-control-input"
-                    checked={this.props.serviceType === 'Clogged Drains'}
-                    value="Clogged Drains"
-                    onChange={this.updateServiceParent} />
-                  <label className="custom-control-label" htmlFor="customRadio1">Clogged Drains</label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input type="radio" id="customRadio2" name="jobType" className="custom-control-input"
-                    checked={this.props.serviceType === 'Leaking Pipes'}
-                    value="Leaking Pipes"
-                    onChange={this.updateServiceParent} />
-                  <label className="custom-control-label" htmlFor="customRadio2">Leaking Pipes</label>
-                </div>
-              </div>
-              <div className="rightCol">
-
-              </div>
-            </div>
-            <br />
-            <div style={styleButtons}>
-              <div className="leftBtn">
-                <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
-              </div>
-              <div className="rightBtn">
-                <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
-              </div>
-            </div>
+        //Run through the services array and output a radio button for each service
+        listServices = plumberServiceList.map((service, index) =>
+          <div className="custom-control custom-radio" key={service.id}>
+            <input type="radio" id={'serviceRadio' + index} name="jobType" className="custom-control-input"
+              checked={this.props.serviceType === service}
+              value={service}
+              onChange={this.updateServiceParent} />
+            <label className="custom-control-label" htmlFor={'serviceRadio' + index}>{service}</label>
           </div>
+        );
         break;
+
       case 'electrician':
 
         break;
@@ -76,10 +39,30 @@ export class FormServiceDetails2 extends Component {
     }
     return (
       < div >
-        {jobType}
+        <div className="requestForm">
+          <h3>What type of job you need?</h3>
+          <p>You can choose one option below or in case you need something different, just click on Other and you can give us more details about the job in the next step.</p>
+          <div className="jobType">
+            <div className="leftCol">
+              {listServices}
+            </div>
+            <div className="rightCol">
+
+            </div>
+          </div>
+          <br />
+          <div className="buttons">
+            <div className="leftBtn">
+              <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
+            </div>
+            <div className="rightBtn">
+              <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
+            </div>
+          </div>
+        </div>
       </div >
     )
   }
 }
 
-export default FormServiceDetails2;
+export default Form02JobType;

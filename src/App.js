@@ -93,7 +93,7 @@ class App extends Component {
 
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <div className="container">
-            <a className="navbar-brand" href="#">Get Your Quote - London</a>
+            <a className="navbar-brand" href="http://localhost:3000/">Get Your Quote - London</a>
             <div className="form-inline my-2 my-lg-0" id="navbarNavDropdown">
               <ul className="navbar-nav">
                 <button type="button" className="btn btn-light">I'm a professional</button>

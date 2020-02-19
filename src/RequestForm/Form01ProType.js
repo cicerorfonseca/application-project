@@ -8,21 +8,9 @@ export class FormServiceDetails1 extends Component {
   }
 
   render() {
-    // STYLE //
-    const style = {
-      margin: "auto",
-      textAlign: "left"
-    };
-
-    const styleButtons = {
-      display: "flex",
-      justifyContent: "space-between"
-    }
-    // END OF STYLE //
-
     return (
       <div className="requestForm">
-        <div style={style}>
+        <div>
           <h3>What type of professional are you looking for?</h3>
           <p>Select the professional that fits your needs, a plumber, an electrician or a magician :) so we can recommend you only the best!</p>
           <select className="form-control" id="selectProfessional" value={this.props.professional} onChange={this.updateProfessionalParent}>
@@ -35,7 +23,7 @@ export class FormServiceDetails1 extends Component {
           </select>
           <br />
         </div >
-        <div style={styleButtons}>
+        <div className="buttons">
           <div className="leftBtn">
 
             {/* TODO: Validate the field, it must be selected before the next step. */}

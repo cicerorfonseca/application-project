@@ -1,9 +1,11 @@
+const { validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const HttpError = require('../models/http-error');
 const Professional = require('../models/professional');
 
-const { validationResult } = require('express-validator');
-
-const createProfessional = async (req, res, next) => {
+const signUp = async (req, res, next) => {
 
     const errors = validationResult(req);
     
@@ -17,9 +19,30 @@ const createProfessional = async (req, res, next) => {
             description,
             selfEmployed,
             email,
+            password,
             phone,
-            rating,
             logo } = req.body; // (short for: const name = req.body.name)
+    
+    let existingProfessional;
+    
+    try {
+        existingProfessional = await Professional.findOne({ email: email });
+    } catch (err) {
+        return next(new HttpError('Signing up failed, please try again.', 500));
+    }
+
+    if (existingProfessional) {
+        return next(new HttpError('Professional exists already, please login instead.', 422));
+    }
+
+    let hashedPassword;
+
+    try {
+        // requests from the frontend should be https for safety reasons
+        hashedPassword = await bcrypt.hash(password, 12);
+    } catch (err) {
+        return next(new HttpError('Could not create professional, please try again', 500));
+    }
     
     // Create a instance of the Service model
     const createdProfessional = new Professional({
@@ -28,30 +51,89 @@ const createProfessional = async (req, res, next) => {
         description,
         selfEmployed,
         email,
+        password: hashedPassword,
         phone,
-        rating,
-        logo
+        logo,
+        rating: "0"
     });
 
     try {
         await createdProfessional.save(); //save the Document (row) into the Collection (table) | NoSQL x SQL    
     } catch (err) {
-        const error = new HttpError('Creating professional failed, please try again.', 500);
-        return next(error);
+        return next(new HttpError('Signing Up failed, please try again.', 500));
     }
 
-    res.status(201).json({professional: createdProfessional});
+    let token;
+    try {
+        token = jwt.sign(
+            { professionalId: createdProfessional.id, email: createdProfessional.email },
+            'mr_services_pk',
+            { expiresIn: '1h' }
+        );
+    } catch (err) {
+        return next(new HttpError('Signing Up failed, please try again.', 500));
+    }
+
+    res.status(201).json({ professionalId: createdProfessional.email, email: createdProfessional.email, token: token });
 };
+
+const logIn = async (req, res, next) => {
+
+    const errors = validationResult(req);
+    
+    if(!errors.isEmpty()){
+        return next(new HttpError('Invalid inputs passed, please check your data.', 442));
+    }
+
+    // Get the request values
+    const { email, password } = req.body; // (short for: const email = req.body.email)
+
+    let existingProfessional;
+    
+    try {
+        existingProfessional = await Professional.findOne({ email: email });
+    } catch (err) {
+        return next(new HttpError('Logging in failed, please try again.', 500));
+    }
+
+    if (!existingProfessional) {
+        return next(new HttpError('Invalid credential, could not log you in.', 401));
+    }
+
+    let isValidPassword;
+
+    try {
+        isValidPassword = await bcrypt.compare(password, existingProfessional.password);
+    } catch (err) {
+        return next(new HttpError('Could not log you in, please check your credentials and try again.', 500));
+    }
+
+    if (!isValidPassword) {
+        return next(new HttpError('Invalid credential, could not log you in.', 401));
+    }
+
+    let token;
+    try {
+        token = jwt.sign(
+            { professionalId: existingProfessional.id, email: existingProfessional.email },
+            'mr_services_pk',
+            { expiresIn: '1h' }
+        );
+    } catch (err) {
+        return next(new HttpError('Logging in failed, please try again.', 500));
+    }
+
+    res.json({ professionalId: existingProfessional.email, email: existingProfessional.email, token: token });
+}
 
 const getProfessionals = async (req, res, next) => {
 
     let professionals;
 
     try {
-        professionals = await Professional.find();
+        professionals = await Professional.find({}, '-password');
     } catch (err) {
-        const error = new HttpError('Fetching professionals failed, please try again later.', 500);
-        return next(error);
+        return next(new HttpError('Fetching professionals failed, please try again later.', 500));
     }
     res.json({professionals: professionals.map(professional => professional.toObject({getters: true}))});    
 }
@@ -63,20 +145,19 @@ const getProfessionalsByCategory = async (req, res, next) => {
     let professionals;
 
     try {
-        professionals = await Professional.find({category: professionalCategory});    
+        professionals = await Professional.find({category: professionalCategory}, '-password');    
     } catch (err) {
-        const error = new HttpError('Something went wrong, could not find a professional category', 500);
-        return next(error);
+        return next(new HttpError('Something went wrong, could not find a professional category', 500));
     }
 
     if (!professionals) {
-        const error = new HttpError('Could not find a professional for the category', 404);
-        return next(error);
+        return next(new HttpError('Could not find a professional for the category', 404));
     }
 
     res.json({professionals: professionals.map(professional => professional.toObject({getters: true}))});
 };
 
-exports.createProfessional = createProfessional;
+exports.signUp = signUp;
+exports.logIn = logIn;
 exports.getProfessionals = getProfessionals;
 exports.getProfessionalsByCategory = getProfessionalsByCategory;

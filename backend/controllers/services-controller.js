@@ -1,7 +1,9 @@
+const { validationResult } = require('express-validator');
+
 const HttpError = require('../models/http-error');
 const Service = require('../models/service');
 
-const { validationResult } = require('express-validator');
+
 
 const getServices = async (req, res, next) => {
 
@@ -10,8 +12,7 @@ const getServices = async (req, res, next) => {
     try {
         services = await Service.find();
     } catch (err) {
-        const error = new HttpError('Fetching services failed, please try again later.', 500);
-        return next(error);
+        return next(new HttpError('Fetching services failed, please try again later.', 500));
     }
     res.json({services: services.map(service => service.toObject({getters: true}))});    
 }
@@ -24,19 +25,17 @@ const getServiceById = async (req, res, next) => {
     try {
         service = await Service.findById(serviceId);    
     } catch (err) {
-        const error = new HttpError('Something went wrong, could not find a service', 500);
-        return next(error);
+        return next(new HttpError('Something went wrong, could not find a service', 500));
     }
 
     if (!service) {
-        const error = new HttpError('Could not find a service for the provided id', 404);
-        return next(error);
+        return next(new HttpError('Could not find a service for the provided id', 404));
     }
 
     res.json({ service: service.toObject( {getters: true} ) }); // => {service} => {service:service}
 };
 
-const getServiceByProfessionalId = async (req, res, next) => {
+const getServicesByProfessionalId = async (req, res, next) => {
     const professionalId = req.params.sid;
 
     let services;
@@ -44,8 +43,7 @@ const getServiceByProfessionalId = async (req, res, next) => {
     try {
         services = await Service.find({professionals: professionalId});    
     } catch (err) {
-        const error = new HttpError('Fetching services failed, please try again later', 500);
-        return next(error);
+        return next(new HttpError('Fetching services failed, please try again later', 500));
     }    
 
     if (!services || services.length === 0) {
@@ -60,8 +58,7 @@ const createService = async (req, res, next) => {
     const errors = validationResult(req);
     
     if(!errors.isEmpty()){
-        return next(new HttpError('Invalid inputs passed, please check your data.', 442)
-        );
+        return next(new HttpError('Invalid inputs passed, please check your data.', 442));
     }
 
     // Get the request values
@@ -93,8 +90,7 @@ const createService = async (req, res, next) => {
     try {
         await createdService.save(); //save the Document (row) into the Collection (table) | NoSQL x SQL    
     } catch (err) {
-        const error = new HttpError('Creating service failed, please try again.', 500);
-        return next(error);
+        return next(new HttpError('Creating service failed, please try again.', 500));
     }
 
     res.status(201).json({service: createdService});
@@ -105,8 +101,7 @@ const updateService = async (req, res, next) => {
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
-        return next(new HttpError('Invalid inputs passed, please check your data.', 442)
-        );
+        return next(new HttpError('Invalid inputs passed, please check your data.', 442));
     }
 
     // Get the request values
@@ -128,8 +123,7 @@ const updateService = async (req, res, next) => {
     try {
         service = await Service.findById(serviceId);
     } catch (err) {
-        const error = new HttpError('Something went wrong, could not update service (1)', 500);
-        return next(error);
+        return next(new HttpError('Something went wrong, could not update service (1)', 500));
     }
 
     service.postalCode = postalCode;
@@ -146,8 +140,7 @@ const updateService = async (req, res, next) => {
     try {
         await service.save();
     } catch (err) {
-        const error = new HttpError('Something went wrong, could not update service (2)', 500);
-        return next(error);
+        return next(new HttpError('Something went wrong, could not update service (2)', 500));
     }
 
     res.status(200).json({service: service.toObject({ getters: true })}); 
@@ -159,17 +152,19 @@ const deleteService = async (req, res, next) => {
     
     let service;
     try {
-        service = await Service.findById(serviceId);
+        service = await Service.findById(serviceId).populate('professionals');
     } catch (err) {
-        const error = new HttpError('Something went wrong, could not delete service (1)', 500);
-        return next(error);
+        return next(new HttpError('Something went wrong, could not delete service (1)', 500));
+    }
+
+    if (!service) {
+        return next(new HttpError('Something went wrong, could not find service for this id', 404));
     }
 
     try {
         await service.remove();
     } catch (err) {
-        const error = new HttpError('Something went wrong, could not delete service (2)', 500);
-        return next(error);
+        return next(new HttpError('Something went wrong, could not delete service (2)', 500));
     }
 
     res.status(200).json({ message: 'Deleted service.'} );
@@ -177,7 +172,7 @@ const deleteService = async (req, res, next) => {
 
 exports.getServices = getServices;
 exports.getServiceById = getServiceById;
-exports.getServiceByProfessionalId = getServiceByProfessionalId;
+exports.getServicesByProfessionalId = getServicesByProfessionalId;
 exports.createService = createService;
 exports.updateService = updateService;
 exports.deleteService = deleteService;

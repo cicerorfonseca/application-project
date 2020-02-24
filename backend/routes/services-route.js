@@ -1,10 +1,14 @@
 const express = require('express');
+const { check } = require('express-validator');
 
 const servicesController = require('../controllers/services-controller');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
 // filter HTTP request methods
+
+//router.use(checkAuth);
 
 router
     .route('/')
@@ -19,6 +23,6 @@ router
     .patch(servicesController.updateService)
     .delete(servicesController.deleteService);
 
-router.get('/professional/:sid', servicesController.getServiceByProfessionalId);
+router.get('/professional/:sid', servicesController.getServicesByProfessionalId);
 
 module.exports = router;

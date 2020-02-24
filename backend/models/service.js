@@ -14,9 +14,7 @@ const serviceSchema = new Schema({
     lastName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     emailAddress: { type: String, required: true },
-    professionals : [
-        {type: mongoose.Schema.Types.ObjectId, required: true, ref:'Professional'}
-    ]
+    professionals: [{type: mongoose.Schema.Types.ObjectId, required: true, ref:'Professional'}]
 });
 
 module.exports = mongoose.model('Service', serviceSchema);

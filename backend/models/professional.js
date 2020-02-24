@@ -9,9 +9,11 @@ const professionalSchema = new Schema({
     description: { type: String },
     selfEmployed: { type: Boolean, required: true },
     email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, minlength: 6 },
     phone: { type: String, required: true },
-    rating: { type: String, required: true },
-    logo: { type: String }
+    logo: { type: String },
+    rating: { type: String }
+    //services: [{type: mongoose.Schema.Types.ObjectId, ref:'Service'}]
 });
 
 professionalSchema.plugin(uniqueValidator);

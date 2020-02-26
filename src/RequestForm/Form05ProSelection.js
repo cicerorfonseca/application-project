@@ -10,7 +10,7 @@ export class Form05ProSelection extends Component {
   //Get professionals from server
   //componentDidMount is invoked immediately after a component is mounted.
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch('http://localhost:5000/api/professionals')
       .then(response => response.json())
       .then(json => this.props.updateProfessionalsList(json),
         this.setState({ isLoaded: true }))
@@ -37,7 +37,7 @@ export class Form05ProSelection extends Component {
                   <div className="card-header">
                     <div className="title">
                       <input type="checkbox" class="custom-control-input" id="defaultChecked2" />
-                      <h5 className="card-title">Professional Company Name</h5>
+                      <h5 className="card-title">{item.fullName}</h5>
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star checked"></span>

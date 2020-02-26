@@ -3,8 +3,6 @@ const { validationResult } = require('express-validator');
 const HttpError = require('../models/http-error');
 const Service = require('../models/service');
 
-
-
 const getServices = async (req, res, next) => {
 
     let services;
@@ -14,7 +12,7 @@ const getServices = async (req, res, next) => {
     } catch (err) {
         return next(new HttpError('Fetching services failed, please try again later.', 500));
     }
-    res.json({services: services.map(service => service.toObject({getters: true}))});    
+    res.json(services.map(service => service.toObject({getters: true})));    
 }
 
 const getServiceById = async (req, res, next) => {
@@ -32,7 +30,7 @@ const getServiceById = async (req, res, next) => {
         return next(new HttpError('Could not find a service for the provided id', 404));
     }
 
-    res.json({ service: service.toObject( {getters: true} ) }); // => {service} => {service:service}
+    res.json(service.toObject({getters: true}));
 };
 
 const getServicesByProfessionalId = async (req, res, next) => {
@@ -50,7 +48,7 @@ const getServicesByProfessionalId = async (req, res, next) => {
         return next(new HttpError('Could not find services for the provided service id.', 404));
     }
 
-    res.json({ services: services.map(service => service.toObject({ getters: true })) });
+    res.json(services.map(service => service.toObject({ getters: true })));
 }
 
 const createService = async (req, res, next) => {

@@ -8,6 +8,13 @@ export class FormServiceDetails1 extends Component {
   }
 
   render() {
+    let professionals = ['Plumber', 'Electrician', 'Pest Control Specialist', 'Handyman', 'HVAC Specialist'];
+
+    //Run through the professionals array and insert a new <option> to the professionals list output
+    let professionalsList = professionals.map((professional, index) =>
+      <option value={professional} key={index}>{professional}</option>
+    );
+
     return (
       <div className="requestForm">
         <div>
@@ -15,14 +22,13 @@ export class FormServiceDetails1 extends Component {
           <p>Select the professional that fits your needs, a plumber, an electrician or a magician :) so we can recommend you only the best!</p>
           <select className="form-control" id="selectProfessional" value={this.props.professional} onChange={this.updateProfessionalParent}>
             <option hidden>Pick the professional</option>
-            <option value="plumber">Plumber</option>
-            <option value="electrician">Electrician</option>
-            <option value="pestControl">Pest Control Specialist</option>
-            <option value="handyman">Handyman</option>
-            <option value="hvac">HVAC Specialist</option>
+
+            {/* Increments the list according to the professionals array */}
+            {professionalsList}
           </select>
           <br />
-        </div >
+        </div>
+
         <div className="buttons">
           <div className="leftBtn">
 
@@ -35,7 +41,6 @@ export class FormServiceDetails1 extends Component {
           </div>
         </div>
       </div>
-
     )
   }
 }

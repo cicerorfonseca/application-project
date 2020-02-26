@@ -3,25 +3,30 @@ import Logo from './logo-plumber.jpg';
 
 export class Form05ProSelection extends Component {
   state = {
-    isLoaded: false
+    loading: true
   }
-
 
   //Get professionals from server
   //componentDidMount is invoked immediately after a component is mounted.
   componentDidMount() {
-    // fetch('http://localhost:5000/api/professionals')
-    fetch('https://jsonplaceholder.typicode.com/users')
+    // fetch('https://jsonplaceholder.typicode.com/users')
+
+    fetch('http://localhost:5000/api/professionals')
       .then(response => response.json())
       .then(json => {
         this.props.updateProfessionalsList(json);
-        this.setState({ isLoaded: true })
+        this.setState({ isLoaded: false });
+        console.log(json)
       })
   }
 
-  onClickProfessional = (e) => {
-    console.log('Click!' + e.target.id);
-    document.getElementById(e.target.id).className += '-clicked';
+  updateSelectedProfessionalsParent = (e) => {
+    this.props.updateSelectedProfessionals(e.target.value);
+  }
+
+  submitHandler = e => {
+    e.preventDefault();
+    console.log(this.props);
   }
 
   render() {
@@ -29,37 +34,58 @@ export class Form05ProSelection extends Component {
 
     return (
       <div>
-        <div className="requestForm">
-          <h3>Select the pros you'd like to send the request</h3>
-          <p>Here you can select the professionals to send your service request. Read their profile and reviews to help you choose the right service provider and these pros will contact you to discuss your job and availability.</p>
-        </div>
-        <div className="professionalSelection">
-          <div className="card-deck">
-            {professionalsList.map(item => (
-              <div className="col-sm-6" key={item.id}>
-                <div className="card pro-card">
-                  <div className="card-body">
-                    <div className="card-header">
-                      <div className="title">
-                        <input type="checkbox" className="custom-control-input" id="defaultChecked2" />
-                        <h5 className="card-title">{item.name}</h5>
-                        <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star"></span>
-                        <span className="fa fa-star"></span>
+        <div className="prosList">
+          <div className="requestForm">
+            <h3>Select the pros you'd like to send the request</h3>
+            <p>Here you can select the professionals to send your service request. Read their profile and reviews to help you choose the right service provider and these pros will contact you to discuss your job and availability.</p>
+          </div>
+          <div className="professionalSelection">
+            <div className="card-deck">
+              {professionalsList.map(pro => (
+                <div className="col-sm-6" key={pro.id}>
+                  <div className="card pro-card">
+                    <div className="card-body">
+                      <div className="card-header">
+                        <div className="checkbox-container">
+                          <label className="checkbox-label">
+                            <input type="checkbox" value={pro.id} onChange={this.updateSelectedProfessionalsParent} />
+                            <span className="checkbox-custom rectangular"></span>
+                          </label>
+                        </div>
+                        <div className="title">
+                          <h5 className="card-title">{pro.fullName}</h5>
+                          <span className="fa fa-star checked"></span>
+                          <span className="fa fa-star checked"></span>
+                          <span className="fa fa-star checked"></span>
+                          <span className="fa fa-star"></span>
+                          <span className="fa fa-star"></span>
+                        </div>
+                        <div className="prof-picture" id={pro.id}>
+                          <img src={Logo} alt="Company Logo" id={pro.id} />
+                        </div>
                       </div>
-                      <div className="prof-picture" id={item.id}>
-                        <img src={Logo} alt="Company Logo" id={item.id} />
-                      </div>
+                      <p className="card-text" id={pro.id}>{pro.description}</p>
                     </div>
-                    <p className="card-text" id={item.id}>I am a plumber,and I install and repair pipes that supply water and gas to, as well as carry waste away from, homes and businesses. They also install plumbing fixtures such as bathtubs, sinks, and toilets.</p>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
+        <div className="requestForm">
+          <div className="buttons">
+            <div className="leftBtn">
+
+              {/* TODO: Validate the field, it must be selected before the next step. */}
+
+              <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
+            </div>
+            <div className="rightBtn">
+              <button type="submit" className="btn btn-primary" onClick={this.submitHandler}>Submit Request</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     )
   }

@@ -22,7 +22,8 @@ class App extends Component {
     lastName: '',
     phoneNumber: '',
     emailAddress: '',
-    professionalsList: []
+    professionalsList: [],
+    selectedProfessionals: []
   }
 
   //HANDLE STEPS
@@ -42,10 +43,6 @@ class App extends Component {
 
   //UPDATE STATE
   updatePostalCode = (e) => {
-
-    //TODO: Validate the Postal Code according to the London list of postal code
-    //in this first step requests will be made only by customers from London, ON
-
     (this.state.step === 1) ? this.setState({ postalCode: e.target.value }) : this.setState({ postalCode: e })
   }
 
@@ -83,6 +80,10 @@ class App extends Component {
 
   updateProfessionalsList = (childData) => {
     this.setState({ professionalsList: childData })
+  }
+
+  updateSelectedProfessionals = (childData) => {
+    this.setState({ selectedProfessionals: [...this.state.selectedProfessionals, childData] })
   }
 
   render() {
@@ -186,6 +187,8 @@ class App extends Component {
                   professional={this.state.professional}
                   updateProfessionalsList={this.updateProfessionalsList}
                   professionalsList={this.state.professionalsList}
+                  updateSelectedProfessionals={this.updateSelectedProfessionals}
+                  selectedProfessionals={this.state.selectedProfessionals}
                 />
               )}
             </div>

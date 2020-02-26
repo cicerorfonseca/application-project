@@ -44,7 +44,7 @@ const signUp = async (req, res, next) => {
         return next(new HttpError('Could not create professional, please try again', 500));
     }
     
-    // Create a instance of the Service model
+    // Create a instance of the Professional model
     const createdProfessional = new Professional({
         fullName,
         category,
@@ -135,7 +135,7 @@ const getProfessionals = async (req, res, next) => {
     } catch (err) {
         return next(new HttpError('Fetching professionals failed, please try again later.', 500));
     }
-    res.json({professionals: professionals.map(professional => professional.toObject({getters: true}))});    
+    res.json(professionals.map(professional => professional.toObject({getters: true})));    
 }
 
 const getProfessionalsByCategory = async (req, res, next) => {
@@ -154,7 +154,7 @@ const getProfessionalsByCategory = async (req, res, next) => {
         return next(new HttpError('Could not find a professional for the category', 404));
     }
 
-    res.json({professionals: professionals.map(professional => professional.toObject({getters: true}))});
+    res.json(professionals.map(professional => professional.toObject({getters: true})));
 };
 
 exports.signUp = signUp;

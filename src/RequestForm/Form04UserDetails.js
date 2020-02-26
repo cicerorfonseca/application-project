@@ -91,7 +91,7 @@ export class FormUserDetails extends Component {
                 <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
               </div>
               <div className="rightBtn">
-                <button type="submit" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
+                <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
               </div>
             </div>
           </form>

@@ -24,9 +24,35 @@ export class Form05ProSelection extends Component {
     this.props.updateSelectedProfessionals(e.target.value);
   }
 
-  submitHandler = e => {
-    e.preventDefault();
+  postRequest = (obj) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    console.log('Posting request to API...');
+    fetch('http://localhost:5000/api/services', {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(obj),
+      redirect: 'follow'
+    }, console.log(JSON.stringify(obj)))
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
+  submitRequest = () => {
     console.log(this.props);
+    this.postRequest({
+      postalCode: this.props.postalCode,
+      professionalCategory: this.props.professional,
+      serviceType: this.props.serviceType,
+      servicePriority: this.props.servicePriority,
+      firstName: this.props.firstName,
+      lastName: this.props.lastName,
+      phoneNumber: this.props.phoneNumber,
+      emailAddress: this.props.emailAddress,
+      professionals: this.props.selectedProfessionals
+    })
   }
 
   render() {
@@ -81,7 +107,7 @@ export class Form05ProSelection extends Component {
               <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
             </div>
             <div className="rightBtn">
-              <button type="submit" className="btn btn-primary" onClick={this.submitHandler}>Submit Request</button>
+              <button type="submit" className="btn btn-primary" onClick={this.submitRequest}>Submit Request</button>
             </div>
           </div>
         </div>

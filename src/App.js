@@ -184,7 +184,15 @@ class App extends Component {
                   step={step}
                   nextStep={this.nextStep}
                   prevStep={this.prevStep}
+                  postalCode={this.state.postalCode}
                   professional={this.state.professional}
+                  serviceType={this.state.serviceType}
+                  servicePriority={this.state.servicePriority}
+                  firstName={this.state.firstName}
+                  lastName={this.state.lastName}
+                  phoneNumber={this.state.phoneNumber}
+                  emailAddress={this.state.emailAddress}
+                  selectedProfessionals={this.state.selectedProfessionals}
                   updateProfessionalsList={this.updateProfessionalsList}
                   professionalsList={this.state.professionalsList}
                   updateSelectedProfessionals={this.updateSelectedProfessionals}

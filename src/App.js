@@ -86,6 +86,16 @@ class App extends Component {
     this.setState({ selectedProfessionals: [...this.state.selectedProfessionals, childData] })
   }
 
+  validate = () =>{
+    var postalCode = document.getElementById("postalCode").value;
+    var postalCodes = ["N6E", "N6P", "N6N", "N6M", "N6L", "N6K", "N6J", "N6G", "N5V", "N5Z", "N5Y", "N5X","N6B","N6A", "N6C", "N6H", "N6W"];
+    for (var i=0;i< postalCodes.length;i++)
+    {
+      if(postalCode.substring(0,3) == postalCodes[i])
+        this.nextStep();
+    }
+  }
+
   render() {
     const step = this.state.step;
 
@@ -116,15 +126,15 @@ class App extends Component {
               {step === 1 &&
                 <div>
                   <div className="requestForm">
-                    <h3>Where in the London do you live?</h3>
-                    <p>We have been receiving request only from Londoners, if you are not from London we are sorry, as soon as possible you will hear about us in the whole Canada.</p>
+                    <h3>Where in London do you live?</h3>
+                    <p>We are currenlty only receiving requests from residents of London. Please check back soon to see when support will be added for you area.</p>
                     <input type="text" className="form-control form-control-lg" id="postalCode" placeholder="Postal Code" value={this.state.postalCode} onChange={this.updatePostalCode} />
                     <br></br>
                     <div className="get-started-btn">
-                      <button type="button" className="btn btn-primary custom-btn" onClick={this.nextStep}>Get Started</button>
+                      <button type="button" className="btn btn-primary custom-btn" onClick={this.validate}>Get Started</button> 
+        
                     </div>
                   </div>
-
                 </div>
               }
               {/* PROFESSIONAL TYPE FORM */}
@@ -196,8 +206,7 @@ class App extends Component {
                   updateProfessionalsList={this.updateProfessionalsList}
                   professionalsList={this.state.professionalsList}
                   updateSelectedProfessionals={this.updateSelectedProfessionals}
-                  selectedProfessionals={this.state.selectedProfessionals}
-                />
+                  />
               )}
             </div>
           </div>

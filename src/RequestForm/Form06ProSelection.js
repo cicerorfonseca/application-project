@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Logo from './logo-plumber.jpg';
 
-export class Form05ProSelection extends Component {
+export class Form06ProSelection extends Component {
   state = {
     loading: true
   }
@@ -117,4 +117,4 @@ export class Form05ProSelection extends Component {
   }
 }
 
-export default Form05ProSelection;
+export default Form06ProSelection;

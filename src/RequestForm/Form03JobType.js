@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Form02JobType extends Component {
+export class Form03JobType extends Component {
 
   //This function calls the callback props.updateProfessional using the value selected as argument
   updateServiceParent = (e) => {
@@ -130,4 +130,4 @@ export class Form02JobType extends Component {
   }
 }
 
-export default Form02JobType;
+export default Form03JobType;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class FormServiceDetails3 extends Component {
+export class Form04JobDetails extends Component {
   //This function invokes the callback props.updateServiceDetail using the value selected as argument
   updateServiceDetailsParent = (e) => {
     this.props.updateServiceDetail(e.target.value);
@@ -61,4 +61,4 @@ export class FormServiceDetails3 extends Component {
   }
 }
 
-export default FormServiceDetails3;
+export default Form04JobDetails;

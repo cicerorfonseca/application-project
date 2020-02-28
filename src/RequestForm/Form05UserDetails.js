@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class FormUserDetails extends Component {
+export class Form05UserDetails extends Component {
   //Update state from App.js with data from the form
   updateFirstNameParent = (e) => {
     this.props.updateFirstName(e.target.value);
@@ -101,4 +101,4 @@ export class FormUserDetails extends Component {
   }
 }
 
-export default FormUserDetails;
+export default Form05UserDetails;

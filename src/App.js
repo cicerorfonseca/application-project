@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 
 import './App.css';
 
-import Form01ProType from './RequestForm/Form01ProType';
-import Form02JobType from './RequestForm/Form02JobType';
-import Form03JobDetails from './RequestForm/Form03JobDetails';
-import Form04UserDetails from './RequestForm/Form04UserDetails';
-import Form05ProSelection from './RequestForm/Form05ProSelection';
+import Form01PostalCode from './RequestForm/Form01PostalCode';
+import Form02ProType from './RequestForm/Form02ProType';
+import Form03JobType from './RequestForm/Form03JobType';
+import Form04JobDetails from './RequestForm/Form04JobDetails';
+import Form05UserDetails from './RequestForm/Form05UserDetails';
+import Form06ProSelection from './RequestForm/Form06ProSelection';
+import Form07Success from './RequestForm/Form07Success';
 
 class App extends Component {
   state = {
-    step: 1,
+    step: 0,
     postalCode: '',
     professional: '',
     serviceType: '',
@@ -44,8 +46,8 @@ class App extends Component {
 
   //UPDATE STATE
   //The functions bellow update the state object
-  updatePostalCode = (e) => {
-    (this.state.step === 1) ? this.setState({ postalCode: e.target.value }) : this.setState({ postalCode: e })
+  updatePostalCode = (childData) => {
+    this.setState({ postalCode: childData })
   }
 
   updateProfessional = (childData) => {
@@ -88,41 +90,13 @@ class App extends Component {
     this.setState({ selectedProfessionals: [...this.state.selectedProfessionals, childData] })
   }
 
-  //VALIDATE CEP
-  //This function gets the postal code value, 
-  //validates if it is a valid postal code from London, ON, and returns a flag value.
-  validate = () => {
-    var flag = false;
-    var postalCode = document.getElementById("postalCode").value;
-    var postalCodes = ["N6E", "n6e", "N6P", "n6p",
-      "N6N", "n6n", "N6M", "n6m",
-      "N6L", "n6l", "N6K", "n6k",
-      "N6J", "n6j", "N6G", "n6g",
-      "N5V", "n5v", "N5Z", "n5z",
-      "N5Y", "n5y", "N5X", "n5x",
-      "N6B", "n6b", "N6A", "n6a",
-      "N6C", "n6c", "N6H", "n6h",
-      "N6W", "n6w"];
-
-    for (var i = 0; i < postalCodes.length; i++) {
-      if (postalCode.substring(0, 3) == postalCodes[i]) {
-        flag = true;
-        this.nextStep();
-      }
-    }
-    if (flag === false) {
-      alert("Please enter a London Postal Code");
-      this.render();
-    }
-  }
-
   render() {
     const step = this.state.step;
 
     return (
       <div className="App">
 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar fixed-top navbar-dark bg-primary">
           <div className="container">
             <a className="navbar-brand" href="http://localhost:3000/">Get Your Quote - London</a>
             <div className="form-inline my-2 my-lg-0" id="navbarNavDropdown">
@@ -133,102 +107,106 @@ class App extends Component {
           </div>
         </nav>
 
-        <div className="jumbotron">
-          <div className="container">
-            <div className="jumbotronHeader">
-              <h1 className="display-4">Get your quote</h1>
-              <p className="lead">Get FREE quotes for any job around the home.</p>
-              <hr className="my-4" />
-            </div>
-
-            <div className="mainForm">
-              {/* POSTAL CODE FORM */}
-              {step === 1 &&
-                <div>
-                  <div className="requestForm">
-                    <h3>Where in London do you live?</h3>
-                    <p>We are currently only receiving requests from residents of London. Please check back soon to see when support will be added for you area.</p>
-                    <input type="text" className="form-control form-control-lg" id="postalCode" placeholder="Postal Code" value={this.state.postalCode} onChange={this.updatePostalCode} />
-                    <br></br>
-                    <div className="get-started-btn">
-                      <button type="button" className="btn btn-primary custom-btn" onClick={this.validate}>Get Started</button>
-                    </div>
-                  </div>
+        <div id="home">
+          <div className="home-left">
+            {/* Background Plumber */}
+          </div>
+          <div className="home-right">
+            {step === 0 &&
+              <div className="home-description">
+                <h1 className="display-1">Get your quote</h1>
+                <p className="lead">There are many times when DIY home projects can save money.
+                  Combining the internet and local home stores it's easy to find the right parts and expert tips.
+                  But do you know that hiring a professional worker can save you time, eliminate stress, and even save you more money?
+                </p>
+                <div className="get-started-btn">
+                  <button type="button" className="btn btn-primary custom-btn" onClick={this.nextStep}>Get Started</button>
                 </div>
-              }
-              {/* PROFESSIONAL TYPE FORM */}
-              {step === 2 && (
-                < Form01ProType
-                  step={this.state.step}
-                  nextStep={this.nextStep}
-                  prevStep={this.prevStep}
-                  professional={this.state.professional}
-                  updateProfessional={this.updateProfessional}
-                />
-              )}
-              {/* SERVICE TYPE FORM */}
-              {step === 3 && (
-                < Form02JobType
-                  step={this.state.step}
-                  nextStep={this.nextStep}
-                  prevStep={this.prevStep}
-                  professional={this.state.professional}
-                  serviceType={this.state.serviceType}
-                  updateServiceType={this.updateServiceType}
-                />
-              )}
-              {/* SERVICE DETAILS FORM */}
-              {step === 4 && (
-                < Form03JobDetails
-                  step={this.state.step}
-                  nextStep={this.nextStep}
-                  prevStep={this.prevStep}
-                  serviceDetail={this.state.serviceDetail}
-                  servicePriority={this.state.servicePriority}
-                  updateServiceDetail={this.updateServiceDetail}
-                  updateServicePriority={this.updateServicePriority}
-                />
-              )}
-              {/* USER DETAILS FORM */}
-              {step === 5 && (
-                < Form04UserDetails
-                  step={step}
-                  nextStep={this.nextStep}
-                  prevStep={this.prevStep}
-                  firstName={this.state.firstName}
-                  lastName={this.state.lastName}
-                  phoneNumber={this.state.phoneNumber}
-                  emailAddress={this.state.emailAddress}
-                  postalCode={this.state.postalCode}
-                  updateFirstName={this.updateFirstName}
-                  updateLastName={this.updateLastName}
-                  updatePhoneNumber={this.updatePhoneNumber}
-                  updateEmailAddress={this.updateEmailAddress}
-                  updatePostalCode={this.updatePostalCode}
-                />
-              )}
-              {/* USER DETAILS FORM */}
-              {step === 6 && (
-                < Form05ProSelection
-                  step={step}
-                  nextStep={this.nextStep}
-                  prevStep={this.prevStep}
-                  postalCode={this.state.postalCode}
-                  professional={this.state.professional}
-                  serviceType={this.state.serviceType}
-                  serviceDetail={this.state.serviceDetail}
-                  servicePriority={this.state.servicePriority}
-                  firstName={this.state.firstName}
-                  lastName={this.state.lastName}
-                  phoneNumber={this.state.phoneNumber}
-                  emailAddress={this.state.emailAddress}
-                  selectedProfessionals={this.state.selectedProfessionals}
-                  updateProfessionalsList={this.updateProfessionalsList}
-                  professionalsList={this.state.professionalsList}
-                  updateSelectedProfessionals={this.updateSelectedProfessionals}
-                />
-              )}
-            </div>
+              </div>
+            }
+
+            {/* POSTAL CODE FORM */}
+            {step === 1 &&
+              < Form01PostalCode
+                step={this.state.step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                postalCode={this.state.postalCode}
+                updatePostalCode={this.updatePostalCode}
+              />
+            }
+            {/* PROFESSIONAL TYPE FORM */}
+            {step === 2 && (
+              < Form02ProType
+                step={this.state.step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                professional={this.state.professional}
+                updateProfessional={this.updateProfessional}
+              />
+            )}
+            {/* SERVICE TYPE FORM */}
+            {step === 3 && (
+              < Form03JobType
+                step={this.state.step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                professional={this.state.professional}
+                serviceType={this.state.serviceType}
+                updateServiceType={this.updateServiceType}
+              />
+            )}
+            {/* SERVICE DETAILS FORM */}
+            {step === 4 && (
+              < Form04JobDetails
+                step={this.state.step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                serviceDetail={this.state.serviceDetail}
+                servicePriority={this.state.servicePriority}
+                updateServiceDetail={this.updateServiceDetail}
+                updateServicePriority={this.updateServicePriority}
+              />
+            )}
+            {/* USER DETAILS FORM */}
+            {step === 5 && (
+              < Form05UserDetails
+                step={step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
+                phoneNumber={this.state.phoneNumber}
+                emailAddress={this.state.emailAddress}
+                postalCode={this.state.postalCode}
+                updateFirstName={this.updateFirstName}
+                updateLastName={this.updateLastName}
+                updatePhoneNumber={this.updatePhoneNumber}
+                updateEmailAddress={this.updateEmailAddress}
+                updatePostalCode={this.updatePostalCode}
+              />
+            )}
+            {/* USER DETAILS FORM */}
+            {step === 6 && (
+              < Form06ProSelection
+                step={step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                postalCode={this.state.postalCode}
+                professional={this.state.professional}
+                serviceType={this.state.serviceType}
+                serviceDetail={this.state.serviceDetail}
+                servicePriority={this.state.servicePriority}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
+                phoneNumber={this.state.phoneNumber}
+                emailAddress={this.state.emailAddress}
+                selectedProfessionals={this.state.selectedProfessionals}
+                updateProfessionalsList={this.updateProfessionalsList}
+                professionalsList={this.state.professionalsList}
+                updateSelectedProfessionals={this.updateSelectedProfessionals}
+              />
+            )}
           </div>
         </div>
       </div>

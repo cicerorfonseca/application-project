@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class FormServiceDetails1 extends Component {
+export class Form02ProType extends Component {
 
   //Update app.js state
   updateProfessionalParent = (e) => {
@@ -18,15 +18,15 @@ export class FormServiceDetails1 extends Component {
     return (
       <div className="requestForm">
         <div>
-          <h3>What type of professional are you looking for?</h3>
-          <p>Select the professional that fits your needs, a plumber, an electrician or a magician :) so we can recommend you only the best!</p>
+          <h3 className="display-2">What type of professional are you looking for?</h3>
+          <p className="lead">Select the professional that fits your needs, a plumber, an electrician or a magician :) so we can recommend you only the best!</p>
+          <p id="validation-msg"></p>
           <select className="form-control" id="selectProfessional" value={this.props.professional} onChange={this.updateProfessionalParent}>
             <option hidden>Pick the professional</option>
 
             {/* Increments the list according to the professionals array */}
             {professionalsList}
           </select>
-          <br />
         </div>
 
         <div className="buttons">
@@ -45,4 +45,4 @@ export class FormServiceDetails1 extends Component {
   }
 }
 
-export default FormServiceDetails1;
+export default Form02ProType;

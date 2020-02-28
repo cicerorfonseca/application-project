@@ -6,9 +6,10 @@ import Form01PostalCode from './RequestForm/Form01PostalCode';
 import Form02ProType from './RequestForm/Form02ProType';
 import Form03JobType from './RequestForm/Form03JobType';
 import Form04JobDetails from './RequestForm/Form04JobDetails';
-import Form05UserDetails from './RequestForm/Form05UserDetails';
-import Form06ProSelection from './RequestForm/Form06ProSelection';
-import Form07Success from './RequestForm/Form07Success';
+import Form05JobPriority from './RequestForm/Form05JobPriority';
+import Form06UserDetails from './RequestForm/Form06UserDetails';
+import Form07ProSelection from './RequestForm/Form07ProSelection';
+import Form08Success from './RequestForm/Form08Success';
 
 class App extends Component {
   state = {
@@ -168,9 +169,19 @@ class App extends Component {
                 updateServicePriority={this.updateServicePriority}
               />
             )}
-            {/* USER DETAILS FORM */}
+            {/* SERVICE PRIORITY FORM */}
             {step === 5 && (
-              < Form05UserDetails
+              < Form05JobPriority
+                step={this.state.step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                servicePriority={this.state.servicePriority}
+                updateServicePriority={this.updateServicePriority}
+              />
+            )}
+            {/* USER DETAILS FORM */}
+            {step === 6 && (
+              < Form06UserDetails
                 step={step}
                 nextStep={this.nextStep}
                 prevStep={this.prevStep}
@@ -187,8 +198,8 @@ class App extends Component {
               />
             )}
             {/* USER DETAILS FORM */}
-            {step === 6 && (
-              < Form06ProSelection
+            {step === 7 && (
+              < Form07ProSelection
                 step={step}
                 nextStep={this.nextStep}
                 prevStep={this.prevStep}

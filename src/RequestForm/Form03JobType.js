@@ -101,21 +101,18 @@ export class Form03JobType extends Component {
           </div>
         );
         break;
-
       default:
         break;
     }
     return (
-      < div >
-        <div className="requestForm">
-          <h3>What type of job you need?</h3>
-          <p>You can choose one option below or in case you need something different, just click on Other and you can give us more details about the job in the next step.</p>
-          <div className="jobType">
-
+      <div>
+        <div className="request-form">
+          <h3 className="display-2">What type of job you need?</h3>
+          <p className="lead">You can choose one option below or in case you need something different, just click on Other and you can give us more details about the job in the next step.</p>
+          <p id="validation-msg"></p>
+          <div className="job-type">
             {listServices}
-
           </div>
-          <br />
           <div className="buttons">
             <div className="leftBtn">
               <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
@@ -125,7 +122,7 @@ export class Form03JobType extends Component {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     )
   }
 }

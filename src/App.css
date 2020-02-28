@@ -11,8 +11,22 @@ body {
   background-size: cover;
 }
 
+.display-1 {
+  font-size: 4em;
+  margin: 4% 0;
+}
+
+.display-2 {
+  font-size: 3em;
+  margin: 2% 0;
+}
+
+.lead {
+  margin: 0;
+}
+
+/* FIRST PAGE */
 #home {
-  
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -32,10 +46,11 @@ body {
 
 .home-description,
 .form-postal-code,
-.requestForm {
+.request-form {
   padding: 15% 8% 0 17%;
 }
 
+/* POSTAL CODE FORM */
 #postalCode,
 #selectProfessional {
   margin: 0;
@@ -50,18 +65,16 @@ body {
   color: rgb(60, 106, 146);
 }
 
-.display-1 {
-  font-size: 4em;
-  margin: 4% 0;
-}
-
-.display-2 {
-  font-size: 3em;
-  margin: 2% 0;
-}
-
-.lead {
+/* JOB TYPE FORM */
+.custom-control {
   margin: 0;
+}
+.custom-radio {
+  margin: 0 0 1% 0;
+}
+
+.custom-control-input ~ .custom-control-label::before {
+  background-color: rgb(156, 218, 250);
 }
 
 .get-started-btn {
@@ -83,10 +96,20 @@ body {
   margin: 4% 0;
 }
 
-.professionalSelection {
-  width: 85%;
-  margin: auto;
-  text-align: left;
+/* USER DETAILS FORM */
+.last-row {
+  margin-bottom: 0;
+}
+
+/* PROFESSIONAL SELECTION */
+.card-deck {
+  width: 100%;
+  margin: 0;
+}
+
+.col-sm-6 {
+  margin: 0;
+  padding: 0;
 }
 
 .pro-card {
@@ -149,7 +172,6 @@ body {
   font-size: 0.8em;
 }
 
-/* --- Form05ProSelection --- */
 /* Styling Checkbox */
 .checkbox-container {
   padding: 5% 0 0 0 ;
@@ -189,7 +211,6 @@ body {
   border: 2px solid #FFFFFF;
 }
 
-
 .checkbox-label input:checked ~ .checkbox-custom {
   background-color: #FFFFFF;
   border-radius: 5px;
@@ -199,7 +220,6 @@ body {
   opacity:1;
   border: 2px solid #FFFFFF;
 }
-
 
 .checkbox-label .checkbox-custom::after {
   position: absolute;
@@ -221,7 +241,6 @@ body {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
 }
-
 
 .checkbox-label input:checked ~ .checkbox-custom::after {
 -webkit-transform: rotate(45deg) scale(1);

@@ -60,45 +60,40 @@ export class Form06ProSelection extends Component {
 
     return (
       <div>
-        <div className="prosList">
-          <div className="requestForm">
-            <h3>Select the pros you'd like to send the request</h3>
-            <p>Here you can select the professionals to send your service request. Read their profile and reviews to help you choose the right service provider and these pros will contact you to discuss your job and availability.</p>
-          </div>
-          <div className="professionalSelection">
-            <div className="card-deck">
-              {professionalsList.map(pro => (
-                <div className="col-sm-6" key={pro.id}>
-                  <div className="card pro-card">
-                    <div className="card-body">
-                      <div className="card-header">
-                        <div className="checkbox-container">
-                          <label className="checkbox-label">
-                            <input type="checkbox" value={pro.id} onChange={this.updateSelectedProfessionalsParent} />
-                            <span className="checkbox-custom rectangular"></span>
-                          </label>
-                        </div>
-                        <div className="title">
-                          <h5 className="card-title">{pro.fullName}</h5>
-                          <span className="fa fa-star checked"></span>
-                          <span className="fa fa-star checked"></span>
-                          <span className="fa fa-star checked"></span>
-                          <span className="fa fa-star"></span>
-                          <span className="fa fa-star"></span>
-                        </div>
-                        <div className="prof-picture" id={pro.id}>
-                          <img src={Logo} alt="Company Logo" id={pro.id} />
-                        </div>
+        <div className="request-form">
+          <h3 className="display-2">Select the pros you'd like to send the request</h3>
+          <p className="lead">Here you can select the professionals to send your service request. Read their profile and reviews to help you choose the right service provider and these pros will contact you to discuss your job and availability.</p>
+          <p id="validation-msg"></p>
+          <div className="card-deck">
+            {professionalsList.map(pro => (
+              <div className="col-sm-6" key={pro.id}>
+                <div className="card pro-card">
+                  <div className="card-body">
+                    <div className="card-header">
+                      <div className="checkbox-container">
+                        <label className="checkbox-label">
+                          <input type="checkbox" value={pro.id} onChange={this.updateSelectedProfessionalsParent} />
+                          <span className="checkbox-custom rectangular"></span>
+                        </label>
                       </div>
-                      <p className="card-text" id={pro.id}>{pro.description}</p>
+                      <div className="title">
+                        <h5 className="card-title">{pro.fullName}</h5>
+                        <span className="fa fa-star checked"></span>
+                        <span className="fa fa-star checked"></span>
+                        <span className="fa fa-star checked"></span>
+                        <span className="fa fa-star"></span>
+                        <span className="fa fa-star"></span>
+                      </div>
+                      <div className="prof-picture" id={pro.id}>
+                        <img src={Logo} alt="Company Logo" id={pro.id} />
+                      </div>
                     </div>
+                    <p className="card-text" id={pro.id}>{pro.description}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="requestForm">
           <div className="buttons">
             <div className="leftBtn">
 
@@ -111,7 +106,6 @@ export class Form06ProSelection extends Component {
             </div>
           </div>
         </div>
-
       </div>
     )
   }

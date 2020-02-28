@@ -16,7 +16,6 @@ export class Form05ProSelection extends Component {
       .then(json => {
         this.props.updateProfessionalsList(json);
         this.setState({ isLoaded: false });
-        console.log(json)
       })
   }
 
@@ -34,7 +33,7 @@ export class Form05ProSelection extends Component {
       headers: myHeaders,
       body: JSON.stringify(obj),
       redirect: 'follow'
-    }, console.log(JSON.stringify(obj)))
+    })
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));

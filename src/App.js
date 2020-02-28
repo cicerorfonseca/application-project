@@ -27,6 +27,7 @@ class App extends Component {
   }
 
   //HANDLE STEPS
+  //Both functions increase and decrease the state step, that is responsible for showing and hidding the components
   nextStep = () => {
     const step = this.state.step;
     this.setState({
@@ -42,6 +43,7 @@ class App extends Component {
   }
 
   //UPDATE STATE
+  //The functions bellow update the state object
   updatePostalCode = (e) => {
     (this.state.step === 1) ? this.setState({ postalCode: e.target.value }) : this.setState({ postalCode: e })
   }
@@ -86,32 +88,32 @@ class App extends Component {
     this.setState({ selectedProfessionals: [...this.state.selectedProfessionals, childData] })
   }
 
-  validate = () =>{
+  //VALIDATE CEP
+  //This function gets the postal code value, 
+  //validates if it is a valid postal code from London, ON, and returns a flag value.
+  validate = () => {
     var flag = false;
     var postalCode = document.getElementById("postalCode").value;
-    var postalCodes = ["N6E","n6e","N6P", "n6p", 
-                        "N6N","n6n", "N6M", "n6m", 
-                        "N6L", "n6l", "N6K","n6k", 
-                        "N6J", "n6j", "N6G", "n6g", 
-                        "N5V", "n5v", "N5Z", "n5z", 
-                        "N5Y", "n5y", "N5X", "n5x",
-                        "N6B", "n6b", "N6A", "n6a", 
-                        "N6C", "n6c", "N6H", "n6h", 
-                        "N6W", "n6w"];
-    for (var i=0;i< postalCodes.length;i++)
-    {
-      if(postalCode.substring(0,3) == postalCodes[i])
-      {
+    var postalCodes = ["N6E", "n6e", "N6P", "n6p",
+      "N6N", "n6n", "N6M", "n6m",
+      "N6L", "n6l", "N6K", "n6k",
+      "N6J", "n6j", "N6G", "n6g",
+      "N5V", "n5v", "N5Z", "n5z",
+      "N5Y", "n5y", "N5X", "n5x",
+      "N6B", "n6b", "N6A", "n6a",
+      "N6C", "n6c", "N6H", "n6h",
+      "N6W", "n6w"];
+
+    for (var i = 0; i < postalCodes.length; i++) {
+      if (postalCode.substring(0, 3) == postalCodes[i]) {
         flag = true;
         this.nextStep();
       }
     }
-    if(flag === false)
-    {
+    if (flag === false) {
       alert("Please enter a London Postal Code");
       this.render();
     }
-
   }
 
   render() {
@@ -145,12 +147,11 @@ class App extends Component {
                 <div>
                   <div className="requestForm">
                     <h3>Where in London do you live?</h3>
-                    <p>We are currenlty only receiving requests from residents of London. Please check back soon to see when support will be added for you area.</p>
+                    <p>We are currently only receiving requests from residents of London. Please check back soon to see when support will be added for you area.</p>
                     <input type="text" className="form-control form-control-lg" id="postalCode" placeholder="Postal Code" value={this.state.postalCode} onChange={this.updatePostalCode} />
                     <br></br>
                     <div className="get-started-btn">
-                      <button type="button" className="btn btn-primary custom-btn" onClick={this.validate}>Get Started</button> 
-        
+                      <button type="button" className="btn btn-primary custom-btn" onClick={this.validate}>Get Started</button>
                     </div>
                   </div>
                 </div>
@@ -224,7 +225,7 @@ class App extends Component {
                   updateProfessionalsList={this.updateProfessionalsList}
                   professionalsList={this.state.professionalsList}
                   updateSelectedProfessionals={this.updateSelectedProfessionals}
-                  />
+                />
               )}
             </div>
           </div>

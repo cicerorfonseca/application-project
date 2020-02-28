@@ -87,13 +87,31 @@ class App extends Component {
   }
 
   validate = () =>{
+    var flag = false;
     var postalCode = document.getElementById("postalCode").value;
-    var postalCodes = ["N6E", "N6P", "N6N", "N6M", "N6L", "N6K", "N6J", "N6G", "N5V", "N5Z", "N5Y", "N5X","N6B","N6A", "N6C", "N6H", "N6W"];
+    var postalCodes = ["N6E","n6e","N6P", "n6p", 
+                        "N6N","n6n", "N6M", "n6m", 
+                        "N6L", "n6l", "N6K","n6k", 
+                        "N6J", "n6j", "N6G", "n6g", 
+                        "N5V", "n5v", "N5Z", "n5z", 
+                        "N5Y", "n5y", "N5X", "n5x",
+                        "N6B", "n6b", "N6A", "n6a", 
+                        "N6C", "n6c", "N6H", "n6h", 
+                        "N6W", "n6w"];
     for (var i=0;i< postalCodes.length;i++)
     {
       if(postalCode.substring(0,3) == postalCodes[i])
+      {
+        flag = true;
         this.nextStep();
+      }
     }
+    if(flag === false)
+    {
+      alert("Please enter a London Postal Code");
+      this.render();
+    }
+
   }
 
   render() {

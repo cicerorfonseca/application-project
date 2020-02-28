@@ -216,6 +216,7 @@ class App extends Component {
                   postalCode={this.state.postalCode}
                   professional={this.state.professional}
                   serviceType={this.state.serviceType}
+                  serviceDetail={this.state.serviceDetail}
                   servicePriority={this.state.servicePriority}
                   firstName={this.state.firstName}
                   lastName={this.state.lastName}

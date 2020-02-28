@@ -45,6 +45,7 @@ export class Form05ProSelection extends Component {
       postalCode: this.props.postalCode,
       professionalCategory: this.props.professional,
       serviceType: this.props.serviceType,
+      serviceDetail: this.props.serviceDetail,
       servicePriority: this.props.servicePriority,
       firstName: this.props.firstName,
       lastName: this.props.lastName,

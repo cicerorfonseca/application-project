@@ -54,7 +54,7 @@ const signUp = async (req, res, next) => {
         password: hashedPassword,
         phone,
         logo,
-        rating: "0"
+        rating: Math.floor(Math.random() * (5 - 1 + 0)) + 0
     });
 
     try {

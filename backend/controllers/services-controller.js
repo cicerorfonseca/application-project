@@ -2,6 +2,8 @@ const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error');
 const Service = require('../models/service');
+const Professional = require('../models/professional');
+const sender = require('../util/mailer');
 
 const getServices = async (req, res, next) => {
 
@@ -89,6 +91,47 @@ const createService = async (req, res, next) => {
         await createdService.save(); //save the Document (row) into the Collection (table) | NoSQL x SQL    
     } catch (err) {
         return next(new HttpError('Creating service failed, please try again.', 500));
+    }
+
+    try {
+
+        let professionals = createdService.professionals;
+
+        professionals.forEach(element => {
+            Professional.findOne({'_id': element}, 'email fullName', 
+                function (err, professional) {
+                    if (err) {
+                        next(new HttpError('Fetching services failed, please try again later', 500));
+                    }
+                    if(professional) {
+
+                        let mailData = {
+                            templateName: 'serviceRequest',
+                            sender: '', // include a email to test
+                            //receiver: professional.email,
+                            receiver: '', // include a email to test
+                            name: professional.fullName,
+                            customer_name: createdService.firstName,
+                            category: createdService.professionalCategory,
+                            service_type: createdService.serviceType,
+                            details: createdService.serviceDetail,
+                            priority: createdService.servicePriority,
+                            customer_phone: createdService.phoneNumber,
+                            customer_email: createdService.emailAddress
+                        }
+                    
+                        sender.sendEmail(mailData);
+
+                        console.log('%s %s', professional.email, professional.fullName);
+                    } else {
+                        console.log('professional not found!');
+                    }
+                    
+                });
+        });
+           
+    } catch (err) {
+        return next(new HttpError('Fetching services failed, please try again later', 500));
     }
 
     res.status(201).json({service: createdService});

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 const Professional = require('../models/professional');
+const sender = require('../util/mailer');
 
 const signUp = async (req, res, next) => {
 
@@ -73,6 +74,16 @@ const signUp = async (req, res, next) => {
     } catch (err) {
         return next(new HttpError('Signing Up failed, please try again.', 500));
     }
+
+    let mailData = {
+        templateName: 'signUp',
+        sender: '', // include a email to test
+        //receiver: createdProfessional.email,
+        receiver: '', // include a email to test
+        name: createdProfessional.fullName
+    }
+
+    sender.sendEmail(mailData);
 
     res.status(201).json({ professionalId: createdProfessional.email, email: createdProfessional.email, token: token });
 };

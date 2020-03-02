@@ -3,7 +3,7 @@ const { validationResult } = require('express-validator');
 const HttpError = require('../models/http-error');
 const Service = require('../models/service');
 const Professional = require('../models/professional');
-const sender = require('../util/mailer');
+const sender = require('../utils/mailer');
 
 const getServices = async (req, res, next) => {
 
@@ -107,9 +107,9 @@ const createService = async (req, res, next) => {
 
                         let mailData = {
                             templateName: 'serviceRequest',
-                            sender: '', // include a email to test
+                            sender: 'claudio.rasf@gmail.com', // include a email to test
                             //receiver: professional.email,
-                            receiver: '', // include a email to test
+                            receiver: 'claudioiron@gmail.com', // include a email to test
                             name: professional.fullName,
                             customer_name: createdService.firstName,
                             category: createdService.professionalCategory,

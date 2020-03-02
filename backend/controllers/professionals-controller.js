@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 const Professional = require('../models/professional');
-const sender = require('../util/mailer');
+const sender = require('../utils/mailer');
 
 const signUp = async (req, res, next) => {
 
@@ -68,7 +68,7 @@ const signUp = async (req, res, next) => {
     try {
         token = jwt.sign(
             { professionalId: createdProfessional.id, email: createdProfessional.email },
-            'mr_services_pk',
+            process.env.JWT_KEY,
             { expiresIn: '1h' }
         );
     } catch (err) {
@@ -127,7 +127,7 @@ const logIn = async (req, res, next) => {
     try {
         token = jwt.sign(
             { professionalId: existingProfessional.id, email: existingProfessional.email },
-            'mr_services_pk',
+            process.env.JWT_KEY,
             { expiresIn: '1h' }
         );
     } catch (err) {

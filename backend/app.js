@@ -41,7 +41,7 @@ app.use((error, req, res, next) => {
 });
 
 // Database (MongoDB)
-const connectUrl = 'mongodb+srv://services_iwd:Vli9gRoD6uoCSmjw@cluster0-ih1np.mongodb.net/servicesApi?retryWrites=true&w=majority';
+const connectUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-ih1np.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const connectConfig = {
     useNewUrlParser: true,
     useUnifiedTopology: true,

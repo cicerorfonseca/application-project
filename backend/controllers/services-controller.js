@@ -107,9 +107,10 @@ const createService = async (req, res, next) => {
 
                         let mailData = {
                             templateName: 'serviceRequest',
-                            sender: 'claudio.rasf@gmail.com', // include a email to test
+                            sender: process.env.SENDER, // include a email to test
                             //receiver: professional.email,
-                            receiver: 'claudioiron@gmail.com', // include a email to test
+                            receiver: process.env.RECEIVER, // include a email to test
+                            //Custom fields
                             name: professional.fullName,
                             customer_name: createdService.firstName,
                             category: createdService.professionalCategory,
@@ -125,9 +126,9 @@ const createService = async (req, res, next) => {
                         console.log('%s %s', professional.email, professional.fullName);
                     } else {
                         console.log('professional not found!');
-                    }
-                    
-                });
+                    }                    
+                }
+            );
         });
            
     } catch (err) {
@@ -147,15 +148,15 @@ const updateService = async (req, res, next) => {
 
     // Get the request values
     const { postalCode,
-        professionalCategory,
-        serviceType,
-        serviceDetail,
-        servicePriority,
-        firstName,
-        lastName,
-        phoneNumber,
-        emailAddress,
-        professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
+            professionalCategory,
+            serviceType,
+            serviceDetail,
+            servicePriority,
+            firstName,
+            lastName,
+            phoneNumber,
+            emailAddress,
+            professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
     
     const serviceId = req.params.sid; // Getting the id :sid from the url
 

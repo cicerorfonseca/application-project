@@ -10,6 +10,8 @@ const professionalsRoutes = require('./routes/professionals-route');
 // Project models
 const HttpError = require('./models/http-error');
 
+const PORT = process.env.PORT;
+
 const app = express();
 
 app.use(bp.json());
@@ -51,8 +53,7 @@ const connectConfig = {
 mongoose
     .connect(connectUrl, connectConfig)
     .then(() => {
-        console.log('+++ Database connected! +++');
-        app.listen(5000);
+        app.listen(PORT, console.log(' +++ Server and Database started +++ '));
     })
     .catch(err => {
         console.log(err);

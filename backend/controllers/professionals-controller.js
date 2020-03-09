@@ -77,9 +77,9 @@ const signUp = async (req, res, next) => {
 
     let mailData = {
         templateName: 'signUp',
-        sender: '', // include a email to test
+        sender: process.env.SENDER, // include a email to test
         //receiver: createdProfessional.email,
-        receiver: '', // include a email to test
+        receiver: process.env.RECEIVER, // include a email to test
         name: createdProfessional.fullName
     }
 

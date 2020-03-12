@@ -10,8 +10,9 @@ export class Form06ProSelection extends Component {
   //componentDidMount is invoked immediately after a component is mounted.
   componentDidMount() {
     // fetch('https://jsonplaceholder.typicode.com/users')
+    let URL = 'http://localhost:5000/api/professionals/' + this.props.professional;
 
-    fetch('http://localhost:5000/api/professionals')
+    fetch(URL)
       .then(response => response.json())
       .then(json => {
         this.props.updateProfessionalsList(json);
@@ -35,12 +36,14 @@ export class Form06ProSelection extends Component {
       redirect: 'follow'
     })
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then(result => {
+        let status = (JSON.parse(result));
+        console.log(status.message);
+      })
       .catch(error => console.log('error', error));
   }
 
   submitRequest = () => {
-    console.log(this.props);
     this.postRequest({
       postalCode: this.props.postalCode,
       professionalCategory: this.props.professional,

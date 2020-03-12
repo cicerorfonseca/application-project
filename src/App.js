@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './App.css';
 
+// Service Request Form
 import Form01PostalCode from './RequestForm/Form01PostalCode';
 import Form02ProType from './RequestForm/Form02ProType';
 import Form03JobType from './RequestForm/Form03JobType';
@@ -10,6 +11,9 @@ import Form05JobPriority from './RequestForm/Form05JobPriority';
 import Form06UserDetails from './RequestForm/Form06UserDetails';
 import Form07ProSelection from './RequestForm/Form07ProSelection';
 import Form08Success from './RequestForm/Form08Success';
+
+// Professional Form
+import FormProfessional from './ProfessionalForm/FormProfessional';
 
 class App extends Component {
   state = {
@@ -102,7 +106,9 @@ class App extends Component {
             <a className="navbar-brand" href="http://localhost:3000/">Get Your Quote - London</a>
             <div className="form-inline my-2 my-lg-0" id="navbarNavDropdown">
               <ul className="navbar-nav">
-                <button type="button" className="btn btn-light">I'm a professional</button>
+                <form>
+                  <button type="submit" className="btn btn-light" formAction="#professional">I'm a professional</button>
+                </form>
               </ul>
             </div>
           </div>
@@ -117,8 +123,8 @@ class App extends Component {
               <div className="home-description">
                 <h1 className="display-1">Get your quote</h1>
                 <p className="lead">There are many times when DIY home projects can save money.
-                  Combining the internet and local home stores it's easy to find the right parts and expert tips.
-                  But do you know that hiring a professional worker can save you time, eliminate stress, and even save you more money?
+                Combining the internet and local home stores it's easy to find the right parts and expert tips.
+                But do you know that hiring a professional worker can save you time, eliminate stress, and even save you more money?
                 </p>
                 <div className="get-started-btn">
                   <button type="button" className="btn btn-primary custom-btn" onClick={this.nextStep}>Get Started</button>
@@ -218,7 +224,27 @@ class App extends Component {
                 updateSelectedProfessionals={this.updateSelectedProfessionals}
               />
             )}
+            {/* SUCCESS */}
+            {step === 8 && (
+              < Form08Success />
+            )}
           </div>
+        </div>
+        <div id="professional">
+          < FormProfessional />
+          {/* 
+          <div className="professional-left">
+            
+          </div>
+
+          <div className="professional-right">
+
+          </div>
+
+          <div className="footer">
+
+          </div> 
+          */}
         </div>
       </div>
     )

@@ -15,7 +15,7 @@ export class Form01PostalCode extends Component {
       "N6J", "N6G", "N5V", "N5Z", "N5Y", "N5X", "N6B", "N6A", "N6C", "N6H", "N6W"];
 
     for (var i = 0; i < postalCodes.length; i++) {
-      if (postalCode.substring(0, 3) == postalCodes[i]) {
+      if (postalCode.substring(0, 3) === postalCodes[i]) {
         isValid = true;
         this.props.nextStep();
       }

@@ -6,6 +6,10 @@ html, body, #root, .App {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: url(img/background.png) no-repeat center center fixed;
   background-size: cover;
@@ -38,7 +42,7 @@ body {
   width: 40%;
 }
 
-.home-right {
+.home-right{
   width: 80%;
   height: 100%;
   text-align: left;
@@ -63,6 +67,42 @@ body {
   text-align: right;
   font-style: italic;
   color: rgb(60, 106, 146);
+}
+
+/* PROFESSIONAL */
+.professional-form {
+  padding: 6% 0;
+  width: 60%;
+  margin: auto;
+}
+
+#professional {
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  position: relative;
+}
+
+/* .professional-left {
+  width: 60%;
+}
+
+.professional-right {
+  width: 40%;
+} */
+
+.professional-buttons {
+  text-align: center;
+  margin: 4% 0;
+}
+
+/* FOOTER */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #C7EAFC;
 }
 
 /* JOB TYPE FORM */

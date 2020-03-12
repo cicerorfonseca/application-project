@@ -71,6 +71,7 @@ const createService = async (req, res, next) => {
             lastName,
             phoneNumber,
             emailAddress,
+            date,
             professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
     
     // Create a instance of the Service model
@@ -84,6 +85,7 @@ const createService = async (req, res, next) => {
         lastName,
         phoneNumber,
         emailAddress,
+        date,
         professionals
     });
 
@@ -106,7 +108,7 @@ const createService = async (req, res, next) => {
                     if(professional) {
 
                         let mailData = {
-                            templateName: 'serviceRequest',
+                            templateName: 'serviceRequestProfessional',
                             sender: process.env.SENDER, // include a email to test
                             //receiver: professional.email,
                             receiver: process.env.RECEIVER, // include a email to test
@@ -156,6 +158,7 @@ const updateService = async (req, res, next) => {
             lastName,
             phoneNumber,
             emailAddress,
+            date,
             professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
     
     const serviceId = req.params.sid; // Getting the id :sid from the url
@@ -177,6 +180,7 @@ const updateService = async (req, res, next) => {
     service.lastName = lastName;
     service.phoneNumber = phoneNumber;
     service.emailAddress = emailAddress;
+    service.date = date;
     service.professionals = professionals;    
     
     try {

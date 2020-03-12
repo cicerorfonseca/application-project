@@ -14,6 +14,7 @@ const serviceSchema = new Schema({
     lastName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     emailAddress: { type: String, required: true },
+    date:  { type: Date, required: true },
     professionals: [{type: mongoose.Schema.Types.ObjectId, required: true, ref:'Professional'}]
 });
 

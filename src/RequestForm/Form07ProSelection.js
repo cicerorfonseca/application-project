@@ -37,18 +37,13 @@ export class Form06ProSelection extends Component {
     })
       .then(response => response.text())
       .then(result => {
-        console.log(result);
-        this.props.nextStep();
+        let status = (JSON.parse(result));
+        console.log(status.message);
       })
       .catch(error => console.log('error', error));
   }
 
   submitRequest = () => {
-    let date = new Date();
-    let currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-
-    console.log(currentDate);
-
     this.postRequest({
       postalCode: this.props.postalCode,
       professionalCategory: this.props.professional,
@@ -59,7 +54,6 @@ export class Form06ProSelection extends Component {
       lastName: this.props.lastName,
       phoneNumber: this.props.phoneNumber,
       emailAddress: this.props.emailAddress,
-      date: currentDate,
       professionals: this.props.selectedProfessionals
     })
   }
@@ -69,7 +63,7 @@ export class Form06ProSelection extends Component {
 
     return (
       <div>
-        <div className="request-form-sel-professional">
+        <div className="request-form">
           <h3 className="display-2">Select the pros you'd like to send the request</h3>
           <p className="lead">Here you can select the professionals to send your service request. Read their profile and reviews to help you choose the right service provider and these pros will contact you to discuss your job and availability.</p>
           <p id="validation-msg"></p>
@@ -94,7 +88,7 @@ export class Form06ProSelection extends Component {
                         <span className="fa fa-star"></span>
                       </div>
                       <div className="prof-picture" id={pro.id}>
-                        <img src={pro.logo} alt="Company Logo" id={pro.id} />
+                        <img src={Logo} alt="Company Logo" id={pro.id} />
                       </div>
                     </div>
                     <p className="card-text" id={pro.id}>{pro.description}</p>

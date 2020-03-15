@@ -16,7 +16,7 @@ export class Form02ProType extends Component {
     );
 
     return (
-      <div className="request-form-pro-type">
+      <div className="request-form">
         <div>
           <h3 className="display-2">What type of professional are you looking for?</h3>
           <p className="lead">Select the professional that fits your needs, a plumber, an electrician or a magician :) so we can recommend you only the best!</p>

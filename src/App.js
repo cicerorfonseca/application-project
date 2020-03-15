@@ -14,7 +14,6 @@ import Form08Success from './RequestForm/Form08Success';
 
 // Professional Form
 import FormProfessional from './ProfessionalForm/FormProfessional';
-import FormProfessionalSuccess from './ProfessionalForm/FormProfessionalSuccess';
 
 class App extends Component {
   state = {
@@ -31,8 +30,7 @@ class App extends Component {
     phoneNumber: '',
     emailAddress: '',
     professionalsList: [],
-    selectedProfessionals: [],
-    proSignUp: false
+    selectedProfessionals: []
   }
 
   //HANDLE STEPS
@@ -97,18 +95,13 @@ class App extends Component {
     this.setState({ selectedProfessionals: [...this.state.selectedProfessionals, childData] })
   }
 
-  updateProSignUp = (childData) => {
-    this.setState({ proSignUp: childData })
-  }
-
   render() {
     const step = this.state.step;
-    const proSignUp = this.state.proSignUp;
 
     return (
       <div className="App">
 
-        <nav className="navbar sticky-top navbar-dark bg-primary">
+        <nav className="navbar fixed-top navbar-dark bg-primary">
           <div className="container">
             <a className="navbar-brand" href="http://localhost:3000/">Get Your Quote - London</a>
             <div className="form-inline my-2 my-lg-0" id="navbarNavDropdown">
@@ -238,15 +231,20 @@ class App extends Component {
           </div>
         </div>
         <div id="professional">
-          {proSignUp === false &&
-            <FormProfessional
-              updateProSignUp={this.updateProSignUp}
-            />
-          }
-          {proSignUp === true &&
-            <FormProfessionalSuccess />
-          }
+          < FormProfessional />
+          {/* 
+          <div className="professional-left">
+            
+          </div>
 
+          <div className="professional-right">
+
+          </div>
+
+          <div className="footer">
+
+          </div> 
+          */}
         </div>
       </div>
     )

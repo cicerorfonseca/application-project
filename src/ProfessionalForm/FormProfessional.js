@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FormProfessionalSuccess from './FormProfessionalSuccess';
-import axios from 'axios';
 
 export class FormProfessional extends Component {
   state = {
@@ -9,11 +8,10 @@ export class FormProfessional extends Component {
     proCompanyName: '',
     proCategory: '',
     proPhoneNumber: '',
-    proSelfEmployed: '',
+    proSelfEmployed: false,
     proEmail: '',
     proWebsite: '',
     proDescription: '',
-    proLogo: 'http://devriescurbing.com/img/plumber.png',
     proPassword: ''
   }
 
@@ -27,33 +25,28 @@ export class FormProfessional extends Component {
     myHeaders.append("Content-Type", "application/json");
 
     console.log('Posting request to API...');
-    console.log(obj);
-    fetch('http://localhost:5000/api/professionals/signup', {
+    fetch('http://localhost:5000/api/professional/signup', {
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify(obj),
       redirect: 'follow'
     })
       .then(response => response.text())
-      .then(result => {
-        console.log(result);
-        this.props.updateProSignUp(true);
-      })
+      .then(result => console.log(result))
       .catch(error => console.log('error', error));
   }
 
   submitRequest = () => {
     this.postRequest({
-      fullName: this.state.proFirstName + ' ' + this.state.proLastName,
-      company: this.state.proCompanyName,
+      fullName: this.state.profirstName + ' ' + this.state.prolastName,
+      companyName: this.state.proCompanyName,
       category: this.state.proCategory,
       phone: this.state.proPhoneNumber,
       selfEmployed: this.state.proSelfEmployed,
       email: this.state.proEmail,
-      website: this.state.proWebsite,
+      webSite: this.state.proWebsite,
       description: this.state.proDescription,
-      password: this.state.proPassword,
-      logo: this.state.proLogo
+      password: this.state.proPassword
     })
   }
 
@@ -73,10 +66,10 @@ export class FormProfessional extends Component {
         <form autoComplete="off">
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input type="text" className="form-control" id="proFirstName" placeholder="First Name" value={this.state.profirstName} onChange={this.handleChange('proFirstName')} />
+              <input type="text" className="form-control" id="firstName" placeholder="First Name" value={this.state.profirstName} onChange={this.handleChange('proFirstName')} />
             </div>
             <div className="form-group col-md-6">
-              <input type="text" className="form-control" id="proLastName" placeholder="Last Name" value={this.state.proLastName} onChange={this.handleChange('proLastName')} />
+              <input type="text" className="form-control" id="lastName" placeholder="Last Name" value={this.state.proLastName} onChange={this.handleChange('proLastName')} />
             </div>
           </div>
           <div className="form-row">
@@ -95,20 +88,20 @@ export class FormProfessional extends Component {
 
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input type="text" className="form-control" id="roPhoneNumber" placeholder="Phone Number" value={this.state.proPhoneNumber} onChange={this.handleChange('proPhoneNumber')} />
+              <input type="text" className="form-control" id="phoneNumber" placeholder="Phone Number" value={this.state.proPhoneNumber} onChange={this.handleChange('proPhoneNumber')} />
             </div>
 
             <div className="form-group col-md-6">
-              <select className="form-control" id="selectSelfEmployed" value={this.state.proSelfEmployed} onChange={this.handleChange('proSelfEmployed')}>
+              <select className="form-control" id="selectSelfEmployed" value={this.state.proCategory} onChange={this.handleChange('proCategory')}>
                 <option hidden>Self Employed</option>
-                <option key="1" value="true">Yes</option>
-                <option key="2" value="false">No</option>
+                <option key="1">Yes</option>
+                <option key="2">No</option>
               </select>
             </div>
           </div>
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input type="text" className="form-control" id="proEmail" placeholder="Email" value={this.state.proEmail} onChange={this.handleChange('proEmail')} />
+              <input type="text" className="form-control" id="email" placeholder="Email" value={this.state.proEmail} onChange={this.handleChange('proEmail')} />
             </div>
             <div className="form-group col-md-6">
               <input type="text" className="form-control" id="website" autoComplete="website" placeholder="Website" value={this.state.proWebsite} onChange={this.handleChange('proWebsite')} />
@@ -117,26 +110,13 @@ export class FormProfessional extends Component {
 
           <div className="form-row">
             <div className="form-group col-md-12">
-              <textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Describe your business..." rows="3" onChange={this.handleChange('proDescription')}></textarea>
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group col-md-12 input-row">
-              <div className="input-group mb-3">
-                <div className="custom-file">
-                  <input type="file" className="custom-file-input" id="inputGroupFile02" />
-                  <label className="custom-file-label" htmlFor="inputGroupFile02">Choose file</label>
-                </div>
-                <div className="input-group-append">
-                  <span className="input-group-text" id="">Upload</span>
-                </div>
-              </div>
+              <textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Describe your business..." rows="3"></textarea>
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group col-md-6 last-row">
-              <input type="password" className="form-control" id="password" placeholder="Password" autoComplete="new-password" onChange={this.handleChange('proPassword')} />
+              <input type="password" className="form-control" id="password" placeholder="Password" autoComplete="new-password" />
             </div>
             <div className="form-group col-md-6 last-row">
               <input type="password" className="form-control" id="passwordConfirm" placeholder="Confirm your Password" autoComplete="new-password" />

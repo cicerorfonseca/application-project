@@ -16,8 +16,10 @@ const signUp = async (req, res, next) => {
 
     // Get the request values
     const { fullName,
+            company,
             category,
             description,
+            website,
             selfEmployed,
             email,
             password,
@@ -48,8 +50,10 @@ const signUp = async (req, res, next) => {
     // Create a instance of the Professional model
     const createdProfessional = new Professional({
         fullName,
+        company,
         category,
         description,
+        website,
         selfEmployed,
         email,
         password: hashedPassword,

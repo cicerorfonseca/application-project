@@ -25,7 +25,7 @@ export class Form05UserDetails extends Component {
 
   render() {
     return (
-      <div className="request-form">
+      <div className="request-form-user-details">
         <h3 className="display-2">Finally, your contact details</h3>
         <p className="lead">You are almost done, but the professional needs this information to get in touch. Only the local and relevant professionals you select in the next step will receive this information.</p>
         <p id="validation-msg"></p>

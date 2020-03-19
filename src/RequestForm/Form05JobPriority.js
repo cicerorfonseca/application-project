@@ -6,6 +6,16 @@ export class Form05JobPriority extends Component {
     this.props.updateServicePriority(e.target.value);
   }
 
+  validateServicePriority = () => {
+    if (this.props.servicePriority === '') {
+      document.getElementById('validation-msg').innerHTML = 'Please select the priority';
+      document.getElementById('selectPriority').classList.add('invalidInput');
+    } else {
+      document.getElementById('selectPriority').classList.remove('invalidInput');
+      this.props.nextStep();
+    }
+  }
+
   render() {
     return (
       <div className="request-form">
@@ -21,13 +31,10 @@ export class Form05JobPriority extends Component {
         </select>
         <div className="buttons">
           <div className="leftBtn">
-
-            {/* TODO: Validate the field, it must be selected before the next step. */}
-
             <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
           </div>
           <div className="rightBtn">
-            <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
+            <button type="button" className="btn btn-primary custom-btn" onClick={this.validateServicePriority}>Next</button>
           </div>
         </div>
       </div>

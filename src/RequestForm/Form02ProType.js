@@ -7,12 +7,22 @@ export class Form02ProType extends Component {
     this.props.updateProfessional(e.target.value);
   }
 
+  validateProfessional = () => {
+    if (this.props.professional === '') {
+      document.getElementById('validation-msg').innerHTML = 'Please select a professional';
+      document.getElementById('selectProfessional').classList.add('invalidInput');
+    } else {
+      document.getElementById('selectProfessional').classList.remove('invalidInput');
+      this.props.nextStep();
+    }
+  }
+
   render() {
     let professionals = ['Plumber', 'Electrician', 'Pest Control Specialist', 'Handyman', 'HVAC Specialist'];
 
     //Run through the professionals array and insert a new <option> to the professionals list output
     let professionalsList = professionals.map((professional, index) =>
-      <option value={professional} key={index}>{professional}</option>
+      <option value={index + 1} key={index}>{professional}</option>
     );
 
     return (
@@ -31,13 +41,10 @@ export class Form02ProType extends Component {
 
         <div className="buttons">
           <div className="leftBtn">
-
-            {/* TODO: Validate the field, it must be selected before the next step. */}
-
             <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
           </div>
           <div className="rightBtn">
-            <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
+            <button type="button" className="btn btn-primary custom-btn" onClick={this.validateProfessional}>Next</button>
           </div>
         </div>
       </div>

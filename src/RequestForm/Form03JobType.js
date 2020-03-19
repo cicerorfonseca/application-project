@@ -7,12 +7,20 @@ export class Form03JobType extends Component {
     this.props.updateServiceType(e.target.value);
   }
 
+  validateJobType = () => {
+    if (this.props.serviceType === '') {
+      document.getElementById('validation-msg').innerHTML = 'Please select a professional';
+    } else {
+      this.props.nextStep();
+    }
+  }
+
   render() {
     const professional = this.props.professional;
     let listServices = '';
 
     switch (professional) {
-      case 'Plumber':
+      case '1': //Plumber
         //Declare the services for this professional
         let plumberServiceList = ['Clogged Drains', 'Leaking Pipes', 'Diagnosis & Inspection', 'Electric Showers', 'Sprinkle System',
           'Kitchen Services', 'Sewer Repair', 'Upgrade Fixtures', 'Replace Shower Valves', 'Other'];
@@ -30,7 +38,7 @@ export class Form03JobType extends Component {
         );
         break;
 
-      case 'Electrician':
+      case '2': //Electrician
         //Declare the services for this professional
         let electricianServiceList = ['Internal Lighting', 'External Lighting', 'Sockets & Switches', 'Air Conditioning', 'House Rewire',
           'Switches & Sensors', 'Inspection', 'Installation', 'Other'];
@@ -48,7 +56,7 @@ export class Form03JobType extends Component {
         );
         break;
 
-      case 'Pest Control Specialist':
+      case '3': //Pest Control Specialist
         //Declare the services for this professional
         let pestControlServiceList = ['Residential Pest Control', 'Wildlife Management', 'Bed Bug Management', 'Pest Prevention', 'Small Fly',
           'Large Fly', 'Auditing Services', 'Hygiene Services', 'Other'];
@@ -66,7 +74,7 @@ export class Form03JobType extends Component {
         );
         break;
 
-      case 'Handyman':
+      case '4': //Handyman
         //Declare the services for this professional
         let handymanServiceList = ['Decking', 'Fencing & Gates', 'Flooring', 'Brick Paving', 'Internal Doors',
           'Internal Paiting', 'Gardn Maintenance', 'Shelving & Hangings', 'Other'];
@@ -84,7 +92,7 @@ export class Form03JobType extends Component {
         );
         break;
 
-      case 'HVAC Specialist':
+      case '5': //HVAS Specialist
         //Declare the services for this professional
         let hvacServiceList = ['Furnaces', 'Air Conditioners', 'Water Heaters', 'Water Purifiers', 'Boilers',
           'Thermostat', 'Other'];
@@ -118,7 +126,7 @@ export class Form03JobType extends Component {
               <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
             </div>
             <div className="rightBtn">
-              <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
+              <button type="button" className="btn btn-primary custom-btn" onClick={this.validateJobType}>Next</button>
             </div>
           </div>
         </div>

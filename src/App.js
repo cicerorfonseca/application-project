@@ -20,7 +20,7 @@ class App extends Component {
     step: 0,
     postalCode: '',
     professional: '',
-    serviceType: '',
+    serviceType: 'Other',
     //Service Details
     serviceDetail: '',
     servicePriority: '',

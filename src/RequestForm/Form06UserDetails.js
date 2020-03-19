@@ -22,6 +22,39 @@ export class Form05UserDetails extends Component {
     this.props.updatePostalCode(e.target.value);
   }
 
+  validateUserDetails = () => {
+    let isValid = false;
+    if (this.props.firstName === '') {
+      document.getElementById('firstName').classList.add('invalidInput');
+    } else {
+      document.getElementById('firstName').classList.remove('invalidInput');
+      isValid = true;
+    }
+    if (this.props.lastName === '') {
+      document.getElementById('lastName').classList.add('invalidInput');
+    } else {
+      document.getElementById('lastName').classList.remove('invalidInput');
+      isValid = true;
+    }
+    if (this.props.phoneNumber === '') {
+      document.getElementById('phoneNumber').classList.add('invalidInput');
+    } else {
+      document.getElementById('phoneNumber').classList.remove('invalidInput');
+      isValid = true;
+    }
+    if (this.props.emailAddress === '') {
+      document.getElementById('email').classList.add('invalidInput');
+    } else {
+      document.getElementById('email').classList.remove('invalidInput');
+      isValid = true;
+    }
+    if (isValid === false) {
+      document.getElementById('validation-msg').innerHTML = 'Please fill in all of the fields';
+    } else {
+      document.getElementById('validation-msg').innerHTML = '';
+      this.props.nextStep();
+    }
+  }
 
   render() {
     return (
@@ -66,7 +99,7 @@ export class Form05UserDetails extends Component {
             <button type="button" className="btn btn-primary custom-btn" onClick={this.props.prevStep}>Previous</button>
           </div>
           <div className="rightBtn">
-            <button type="button" className="btn btn-primary custom-btn" onClick={this.props.nextStep}>Next</button>
+            <button type="button" className="btn btn-primary custom-btn" onClick={this.validateUserDetails}>Next</button>
           </div>
         </div>
       </div>

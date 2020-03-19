@@ -17,11 +17,13 @@ export class Form01PostalCode extends Component {
     for (var i = 0; i < postalCodes.length; i++) {
       if (postalCode.substring(0, 3) === postalCodes[i]) {
         isValid = true;
+        document.getElementById('postalCode').classList.remove('invalidInput');
         this.props.nextStep();
       }
     }
     if (isValid === false) {
       document.getElementById('validation-msg').innerHTML = 'Please enter a London Postal Code';
+      document.getElementById('postalCode').classList.add('invalidInput');
     }
   }
 

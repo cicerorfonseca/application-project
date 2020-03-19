@@ -66,7 +66,7 @@ body {
   padding: 0;
   text-align: right;
   font-style: italic;
-  color: rgb(60, 106, 146);
+  color: rgb(180, 87, 87);
 }
 
 /* PROFESSIONAL */
@@ -295,4 +295,11 @@ border: solid #009BFF;
 border-width: 0 2px 2px 0;
 background-color: transparent;
 border-radius: 0;
+}
+
+/* FIELD VALIDATION */
+
+.invalidInput {
+  border: 2px solid rgb(180, 87, 87);
+  outline-offset: -10px;
 }

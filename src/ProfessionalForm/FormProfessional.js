@@ -92,7 +92,7 @@ export class FormProfessional extends Component {
             </div>
 
             <div className="form-group col-md-6">
-              <select className="form-control" id="selectSelfEmployed" value={this.state.proCategory} onChange={this.handleChange('proCategory')}>
+              <select className="form-control" id="selectSelfEmployed" value={this.state.proSelfEmployed} onChange={this.handleChange('proSelfEmployed')}>
                 <option hidden>Self Employed</option>
                 <option key="1">Yes</option>
                 <option key="2">No</option>
@@ -110,13 +110,13 @@ export class FormProfessional extends Component {
 
           <div className="form-row">
             <div className="form-group col-md-12">
-              <textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Describe your business..." rows="3"></textarea>
+              <textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Describe your business..." rows="3" value={this.state.proDescription} onChange={this.handleChange('proDescription')}></textarea>
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group col-md-6 last-row">
-              <input type="password" className="form-control" id="password" placeholder="Password" autoComplete="new-password" />
+              <input type="password" className="form-control" id="password" placeholder="Password" autoComplete="new-password" value={this.state.proPassword} onChange={this.handleChange('proPassword')} />
             </div>
             <div className="form-group col-md-6 last-row">
               <input type="password" className="form-control" id="passwordConfirm" placeholder="Confirm your Password" autoComplete="new-password" />

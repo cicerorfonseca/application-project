@@ -9,8 +9,19 @@ export class Form06ProSelection extends Component {
   //Get professionals from server
   //componentDidMount is invoked immediately after a component is mounted.
   componentDidMount() {
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    let URL = 'http://localhost:5000/api/professionals/' + this.props.professional;
+    let URL = '';
+
+    if (this.props.professional === 1) {
+      URL = 'http://localhost:5000/api/professionals/plumber';
+    } else if (this.props.professional === 2) {
+      URL = 'http://localhost:5000/api/professionals/electrician';
+    } else if (this.props.professional === 3) {
+      URL = 'http://localhost:5000/api/professionals/pestcontrol';
+    } else if (this.props.professional === 4) {
+      URL = 'http://localhost:5000/api/professionals/handyman';
+    } else if (this.props.professional === 5) {
+      URL = 'http://localhost:5000/api/professionals/hvac';
+    }
 
     fetch(URL)
       .then(response => response.json())

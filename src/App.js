@@ -14,6 +14,7 @@ import Form08Success from './RequestForm/Form08Success';
 
 // Professional Form
 import FormProfessional from './ProfessionalForm/FormProfessional';
+import FormProfessionalSuccess from './ProfessionalForm/FormProfessionalSuccess';
 
 class App extends Component {
   state = {
@@ -30,7 +31,8 @@ class App extends Component {
     phoneNumber: '',
     emailAddress: '',
     professionalsList: [],
-    selectedProfessionals: []
+    selectedProfessionals: [],
+    proSignUp: false
   }
 
   //HANDLE STEPS
@@ -95,8 +97,13 @@ class App extends Component {
     this.setState({ selectedProfessionals: [...this.state.selectedProfessionals, childData] })
   }
 
+  updateProSignUp = (childData) => {
+    this.setState({ proSignUp: childData })
+  }
+
   render() {
     const step = this.state.step;
+    const proSignUp = this.state.proSignUp;
 
     return (
       <div className="App">
@@ -231,20 +238,14 @@ class App extends Component {
           </div>
         </div>
         <div id="professional">
-          < FormProfessional />
-          {/* 
-          <div className="professional-left">
-            
-          </div>
-
-          <div className="professional-right">
-
-          </div>
-
-          <div className="footer">
-
-          </div> 
-          */}
+          {proSignUp === false &&
+            <FormProfessional
+              updateProSignUp={this.updateProSignUp}
+            />
+          }
+          {proSignUp === true &&
+            <FormProfessionalSuccess />
+          }
         </div>
       </div>
     )

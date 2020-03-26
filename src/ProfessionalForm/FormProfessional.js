@@ -25,33 +25,41 @@ export class FormProfessional extends Component {
     myHeaders.append("Content-Type", "application/json");
 
     console.log('Posting request to API...');
-    fetch('http://localhost:5000/api/professional/signup', {
+    fetch('http://localhost:5000/api/professionals/signup', {
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify(obj),
       redirect: 'follow'
     })
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then(result => {
+        console.log(JSON.parse(result));
+        if (JSON.parse(result).message == "Professional exists already, please login instead." || JSON.parse(result).message == "Invalid inputs passed, please check your data.") {
+          console.log("Fail...");
+        } else {
+          this.props.updateProSignUp(true);
+        }
+      })
       .catch(error => console.log('error', error));
   }
 
   submitRequest = () => {
     this.postRequest({
-      fullName: this.state.profirstName + ' ' + this.state.prolastName,
-      companyName: this.state.proCompanyName,
+      fullName: this.state.proFirstName + ' ' + this.state.proLastName,
+      company: this.state.proCompanyName,
       category: this.state.proCategory,
       phone: this.state.proPhoneNumber,
       selfEmployed: this.state.proSelfEmployed,
       email: this.state.proEmail,
       webSite: this.state.proWebsite,
       description: this.state.proDescription,
-      password: this.state.proPassword
+      password: this.state.proPassword,
+      logo: 'http://www.cicero.com/logo.png'
     })
   }
 
   render() {
-    let professionals = ['Plumber', 'Electrician', 'Pest Control Specialist', 'Handyman', 'HVAC Specialist'];
+    let professionals = ['plumber', 'plectrician', 'pest Control Specialist', 'pandyman', 'HVAC Specialist'];
 
     //Run through the professionals array and insert a new <option> to the professionals list output
     let professionalsList = professionals.map((professional, index) =>
@@ -94,8 +102,8 @@ export class FormProfessional extends Component {
             <div className="form-group col-md-6">
               <select className="form-control" id="selectSelfEmployed" value={this.state.proSelfEmployed} onChange={this.handleChange('proSelfEmployed')}>
                 <option hidden>Self Employed</option>
-                <option key="1">Yes</option>
-                <option key="2">No</option>
+                <option key="1" value="true">Yes</option>
+                <option key="2" value="false">No</option>
               </select>
             </div>
           </div>

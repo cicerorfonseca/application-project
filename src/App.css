@@ -96,6 +96,17 @@ body {
   margin: 4% 0;
 }
 
+.professional-form-success {
+  width: 60%;
+  margin: auto;
+  padding: 8% 0 0 0;
+  text-align: center;
+}
+
+.professional-form-success form {
+  margin-top: 3%;
+}
+
 /* FOOTER */
 .footer {
   position: absolute;

@@ -114,7 +114,7 @@ export class Form03JobType extends Component {
     }
     return (
       <div>
-        <div className="request-form">
+        <div className="request-form-job-type">
           <h3 className="display-2">What type of job you need?</h3>
           <p className="lead">You can choose one option below or in case you need something different, just click on Other and you can give us more details about the job in the next step.</p>
           <p id="validation-msg"></p>

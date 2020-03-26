@@ -54,6 +54,24 @@ body {
   padding: 15% 8% 0 17%;
 }
 
+.request-form-pro-type {
+  padding: 12% 8% 0 17%;
+}
+
+.request-form-job-type {
+  padding: 8% 8% 0 17%;
+}
+
+.request-form-user-details {
+  padding: 10% 8% 0 17%;
+}
+
+.request-form-sel-professional {
+  padding: 6% 8% 4% 17%;
+  height: 100vh;
+  overflow: scroll;
+}
+
 /* POSTAL CODE FORM */
 #postalCode,
 #selectProfessional {
@@ -67,6 +85,17 @@ body {
   text-align: right;
   font-style: italic;
   color: rgb(180, 87, 87);
+}
+
+.request-form-success {
+  width: 60%;
+  margin: auto;
+  padding: 20% 0 0 0;
+  text-align: center;
+}
+
+.request-form-success form {
+  margin-top: 3%;
 }
 
 /* PROFESSIONAL */

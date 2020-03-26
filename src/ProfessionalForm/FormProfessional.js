@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FormProfessionalSuccess from './FormProfessionalSuccess';
 
 export class FormProfessional extends Component {
   state = {
@@ -34,7 +33,7 @@ export class FormProfessional extends Component {
       .then(response => response.text())
       .then(result => {
         console.log(JSON.parse(result));
-        if (JSON.parse(result).message == "Professional exists already, please login instead." || JSON.parse(result).message == "Invalid inputs passed, please check your data.") {
+        if (JSON.parse(result).message === "Professional exists already, please login instead." || JSON.parse(result).message === "Invalid inputs passed, please check your data.") {
           console.log("Fail...");
         } else {
           this.props.updateProSignUp(true);

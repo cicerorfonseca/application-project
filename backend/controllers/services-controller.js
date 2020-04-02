@@ -4,6 +4,7 @@ const HttpError = require('../models/http-error');
 const Service = require('../models/service');
 const Professional = require('../models/professional');
 const sender = require('../utils/mailer');
+const sms = require('../utils/sms');
 
 const getServices = async (req, res, next) => {
 
@@ -14,16 +15,16 @@ const getServices = async (req, res, next) => {
     } catch (err) {
         return next(new HttpError('Fetching services failed, please try again later.', 500));
     }
-    res.json(services.map(service => service.toObject({getters: true})));    
+    res.json(services.map(service => service.toObject({ getters: true })));
 }
 
 const getServiceById = async (req, res, next) => {
-    
+
     const serviceId = req.params.sid; // {sid: 's1'}
     let service;
 
     try {
-        service = await Service.findById(serviceId);    
+        service = await Service.findById(serviceId);
     } catch (err) {
         return next(new HttpError('Something went wrong, could not find a service', 500));
     }
@@ -32,7 +33,7 @@ const getServiceById = async (req, res, next) => {
         return next(new HttpError('Could not find a service for the provided id', 404));
     }
 
-    res.json(service.toObject({getters: true}));
+    res.json(service.toObject({ getters: true }));
 };
 
 const getServicesByProfessionalId = async (req, res, next) => {
@@ -41,10 +42,10 @@ const getServicesByProfessionalId = async (req, res, next) => {
     let services;
 
     try {
-        services = await Service.find({professionals: professionalId});    
+        services = await Service.find({ professionals: professionalId });
     } catch (err) {
         return next(new HttpError('Fetching services failed, please try again later', 500));
-    }    
+    }
 
     if (!services || services.length === 0) {
         return next(new HttpError('Could not find services for the provided service id.', 404));
@@ -56,24 +57,24 @@ const getServicesByProfessionalId = async (req, res, next) => {
 const createService = async (req, res, next) => {
 
     const errors = validationResult(req);
-    
-    if(!errors.isEmpty()){
+
+    if (!errors.isEmpty()) {
         return next(new HttpError('Invalid inputs passed, please check your data.', 442));
     }
 
     // Get the request values
     const { postalCode,
-            professionalCategory,
-            serviceType,
-            serviceDetail,
-            servicePriority,
-            firstName,
-            lastName,
-            phoneNumber,
-            emailAddress,
-            date,
-            professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
-    
+        professionalCategory,
+        serviceType,
+        serviceDetail,
+        servicePriority,
+        firstName,
+        lastName,
+        phoneNumber,
+        emailAddress,
+        date,
+        professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
+
     // Create a instance of the Service model
     const createdService = new Service({
         postalCode,
@@ -100,12 +101,12 @@ const createService = async (req, res, next) => {
         let professionals = createdService.professionals;
 
         professionals.forEach(element => {
-            Professional.findOne({'_id': element}, 'email fullName', 
+            Professional.findOne({ '_id': element }, 'email fullName phone',
                 function (err, professional) {
                     if (err) {
                         next(new HttpError('Fetching services failed, please try again later', 500));
                     }
-                    if(professional) {
+                    if (professional) {
 
                         let mailData = {
                             templateName: 'serviceRequestProfessional',
@@ -122,49 +123,63 @@ const createService = async (req, res, next) => {
                             customer_phone: createdService.phoneNumber,
                             customer_email: createdService.emailAddress
                         }
-                    
+
                         sender.sendEmail(mailData);
 
-                        console.log('%s %s', professional.email, professional.fullName);
+                        // Send SMS
+                        let smsData = {
+                            name: professional.fullName,
+                            phone: professional.phone,
+                            customerName: createdService.firstName,
+                            category: createdService.professionalCategory,
+                            serviceType: createdService.serviceType,
+                            details: createdService.serviceDetail,
+                            priority: createdService.servicePriority,
+                            customerPhone: createdService.phoneNumber,
+                            customerEmail: createdService.emailAddress
+                        }
+
+                        sms.sendSms(smsData, 2);
+
                     } else {
                         console.log('professional not found!');
-                    }                    
+                    }
                 }
             );
         });
-           
+
     } catch (err) {
         return next(new HttpError('Fetching services failed, please try again later', 500));
     }
 
-    res.status(201).json({service: createdService});
+    res.status(201).json({ service: createdService });
 };
 
 const updateService = async (req, res, next) => {
 
     const errors = validationResult(req);
 
-    if(!errors.isEmpty()){
+    if (!errors.isEmpty()) {
         return next(new HttpError('Invalid inputs passed, please check your data.', 442));
     }
 
     // Get the request values
     const { postalCode,
-            professionalCategory,
-            serviceType,
-            serviceDetail,
-            servicePriority,
-            firstName,
-            lastName,
-            phoneNumber,
-            emailAddress,
-            date,
-            professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
-    
+        professionalCategory,
+        serviceType,
+        serviceDetail,
+        servicePriority,
+        firstName,
+        lastName,
+        phoneNumber,
+        emailAddress,
+        date,
+        professionals } = req.body; // (short for: const postalCode = req.body.postalCode)
+
     const serviceId = req.params.sid; // Getting the id :sid from the url
 
     let service;
-    
+
     try {
         service = await Service.findById(serviceId);
     } catch (err) {
@@ -181,21 +196,21 @@ const updateService = async (req, res, next) => {
     service.phoneNumber = phoneNumber;
     service.emailAddress = emailAddress;
     service.date = date;
-    service.professionals = professionals;    
-    
+    service.professionals = professionals;
+
     try {
         await service.save();
     } catch (err) {
         return next(new HttpError('Something went wrong, could not update service (2)', 500));
     }
 
-    res.status(200).json({service: service.toObject({ getters: true })}); 
+    res.status(200).json({ service: service.toObject({ getters: true }) });
 
 };
 
 const deleteService = async (req, res, next) => {
     const serviceId = req.params.sid; // get the :sid from the request 
-    
+
     let service;
     try {
         service = await Service.findById(serviceId).populate('professionals');
@@ -213,7 +228,7 @@ const deleteService = async (req, res, next) => {
         return next(new HttpError('Something went wrong, could not delete service (2)', 500));
     }
 
-    res.status(200).json({ message: 'Deleted service.'} );
+    res.status(200).json({ message: 'Deleted service.' });
 };
 
 exports.getServices = getServices;

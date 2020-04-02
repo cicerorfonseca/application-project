@@ -5,29 +5,30 @@ const jwt = require('jsonwebtoken');
 const HttpError = require('../models/http-error');
 const Professional = require('../models/professional');
 const sender = require('../utils/mailer');
+const sms = require('../utils/sms');
 
 const signUp = async (req, res, next) => {
 
     const errors = validationResult(req);
-    
-    if(!errors.isEmpty()){
+
+    if (!errors.isEmpty()) {
         return next(new HttpError('Invalid inputs passed, please check your data.', 442));
     }
 
     // Get the request values
     const { fullName,
-            company,
-            category,
-            description,
-            website,
-            selfEmployed,
-            email,
-            password,
-            phone,
-            logo } = req.body; // (short for: const name = req.body.name)
-    
+        company,
+        category,
+        description,
+        website,
+        selfEmployed,
+        email,
+        password,
+        phone,
+        logo } = req.body; // (short for: const name = req.body.name)
+
     let existingProfessional;
-    
+
     try {
         existingProfessional = await Professional.findOne({ email: email });
     } catch (err) {
@@ -46,7 +47,7 @@ const signUp = async (req, res, next) => {
     } catch (err) {
         return next(new HttpError('Could not create professional, please try again', 500));
     }
-    
+
     // Create a instance of the Professional model
     const createdProfessional = new Professional({
         fullName,
@@ -79,6 +80,7 @@ const signUp = async (req, res, next) => {
         return next(new HttpError('Signing Up failed, please try again.', 500));
     }
 
+    // Send Email
     let mailData = {
         templateName: 'signUp',
         sender: process.env.SENDER, // include a email to test
@@ -89,14 +91,22 @@ const signUp = async (req, res, next) => {
 
     sender.sendEmail(mailData);
 
+    // Send SMS
+    let smsData = {
+        name: createdProfessional.fullName,
+        phone: createdProfessional.phone
+    }
+
+    sms.sendSms(smsData, 1);
+
     res.status(201).json({ professionalId: createdProfessional.email, email: createdProfessional.email, token: token });
 };
 
 const logIn = async (req, res, next) => {
 
     const errors = validationResult(req);
-    
-    if(!errors.isEmpty()){
+
+    if (!errors.isEmpty()) {
         return next(new HttpError('Invalid inputs passed, please check your data.', 442));
     }
 
@@ -104,7 +114,7 @@ const logIn = async (req, res, next) => {
     const { email, password } = req.body; // (short for: const email = req.body.email)
 
     let existingProfessional;
-    
+
     try {
         existingProfessional = await Professional.findOne({ email: email });
     } catch (err) {
@@ -150,17 +160,17 @@ const getProfessionals = async (req, res, next) => {
     } catch (err) {
         return next(new HttpError('Fetching professionals failed, please try again later.', 500));
     }
-    res.json(professionals.map(professional => professional.toObject({getters: true})));    
+    res.json(professionals.map(professional => professional.toObject({ getters: true })));
 }
 
 const getProfessionalsByCategory = async (req, res, next) => {
-    
+
     const professionalCategory = req.params.cat;
 
     let professionals;
 
     try {
-        professionals = await Professional.find({category: professionalCategory}, '-password');    
+        professionals = await Professional.find({ category: professionalCategory }, '-password');
     } catch (err) {
         return next(new HttpError('Something went wrong, could not find a professional category', 500));
     }
@@ -169,7 +179,7 @@ const getProfessionalsByCategory = async (req, res, next) => {
         return next(new HttpError('Could not find a professional for the category', 404));
     }
 
-    res.json(professionals.map(professional => professional.toObject({getters: true})));
+    res.json(professionals.map(professional => professional.toObject({ getters: true })));
 };
 
 exports.signUp = signUp;
